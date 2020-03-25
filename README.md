@@ -15,8 +15,10 @@ django-rework init demo
 
 v0.1
 
-[x] `init` command: start a project
-[ ] `add` command: add contrib apps
-[ ] copy deploy files into project, using `django-rework deploy --init`
-[ ] contrib app: users
+[x] Command `init`: start a project
 
+[ ] Command `add`: add contrib apps
+
+[ ] Copy deploy files into project, using `django-rework deploy --init`
+
+[ ] Add contrib app: users
