@@ -7,7 +7,7 @@ setup(
     description='Rapid develop framework base on Django',
     url='https://github.com/rework-union/django-rework',
     author='rework union',
-    author_email='rework@dummyhost',
+    author_email='josh.yu_8@live.com',
     license='MIT',
     entry_points={'console_scripts': [
         'django-rework = rework.core.management:execute_from_command_line',
