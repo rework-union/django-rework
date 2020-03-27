@@ -2,12 +2,25 @@
 
 Rapid develop framework base on Django
 
+# _Installation_
+
+```bash
+python3 -m pip install django-rework
+```
+
+# _Generic CLI Commands_
+
 **Start a new project**
 
 ```bash
-django-rework init demo
+django-rework init projectname
 ```
 
+**Add deployment configurations**
+
+```bash
+django-rework deploy --init
+```
 
 =======
 
@@ -17,16 +30,16 @@ django-rework init demo
 
 > - [ ] Code style: black
 >
-> - [ ] Add contrib app: paid content (app name still uncertain)
+> - [ ] Add test
 >
+> - [ ] Add contrib app: paid content (app name still uncertain)
 
 `v0.1`
 
 > - [x] Command `init`: start a project
-> 
-> - [ ] Command `add`: add contrib apps
-> 
-> - [ ] Copy deploy files into project, using `django-rework deploy --init`
-> 
-> - [ ] Add contrib app: users
 >
+> - [ ] Command `add`: add contrib apps
+>
+> - [ ] Copy deploy files into project, using `django-rework deploy --init`
+>
+> - [ ] Add contrib app: users
