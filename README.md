@@ -13,6 +13,13 @@ django-rework init demo
 
 **RoadMap**
 
+`v0.2`
+
+> - [ ] Code style: black
+>
+> - [ ] Add contrib app: paid content (app name still uncertain)
+>
+
 `v0.1`
 
 > - [x] Command `init`: start a project
