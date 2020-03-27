@@ -22,9 +22,9 @@ django-rework init projectname
 django-rework deploy --init
 ```
 
-=======
+<br>
 
-**RoadMap**
+# _RoadMap_
 
 `v0.2`
 
