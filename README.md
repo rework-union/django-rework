@@ -32,7 +32,10 @@ django-rework deploy --init
 >
 > - [ ] Add test
 >
+> - [ ] Optimized CLI console logs
+>
 > - [ ] Add contrib app: paid content (app name still uncertain)
+>
 
 `v0.1`
 
