@@ -27,13 +27,14 @@ def init(params):
 
     #  1. Make a package named `settings`
     settings_package_path = os.path.join(settings_folder, 'settings')
-    os.mkdir(settings_package_path)
+    base_settings_path = os.path.join(settings_package_path, 'base')
+    os.makedirs(base_settings_path)
 
     #  2. Move origin settings.py to settings/__.init.py
     origin_settings_file = os.path.join(settings_folder, 'settings.py')
     shutil.move(
         origin_settings_file,
-        os.path.join(settings_package_path, '__init__.py'),
+        os.path.join(base_settings_path, '__init__.py'),
     )
 
     #  3. Added multi env setting files
