@@ -40,7 +40,7 @@ def add(params):
                 return False
 
         installed_apps_block = re.sub(
-            r'\n]', f"\n    '{app_full_name}'\n]",
+            r'\n]', f"\n    '{app_full_name}',\n]",
             installed_apps_block,
         )
 
