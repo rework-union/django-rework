@@ -1,3 +1,7 @@
+"""
+Django Rework project managements
+"""
+
 import os
 import shutil
 import subprocess

@@ -38,7 +38,7 @@ django-rework deploy --init
 
 > - [x] Command `init`: start a project
 >
-> - [ ] Command `add`: add contrib apps
+> - [x] Command `add`: add contrib apps
 >
 > - [ ] Copy deploy files into project, using `django-rework deploy --init`
 >
