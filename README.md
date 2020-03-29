@@ -32,13 +32,16 @@ django-rework deploy --init
 >
 > - [ ] Add test
 >
+> - [ ] Optimized CLI console logs
+>
 > - [ ] Add contrib app: paid content (app name still uncertain)
+>
 
 `v0.1`
 
 > - [x] Command `init`: start a project
 >
-> - [ ] Command `add`: add contrib apps
+> - [x] Command `add`: add contrib apps
 >
 > - [ ] Copy deploy files into project, using `django-rework deploy --init`
 >

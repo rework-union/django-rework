@@ -1,10 +1,11 @@
 import sys
 
-from . import project
+from . import project, app
 
 
 COMMANDS = {
     'init': project.init,
+    'add': app.add,
 }
 
 
