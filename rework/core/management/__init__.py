@@ -1,11 +1,12 @@
 import sys
 
-from . import project, app
+from . import project, app, deploy
 
 
 COMMANDS = {
     'init': project.init,
     'add': app.add,
+    'deploy': deploy.DeployCommand(),
 }
 
 
