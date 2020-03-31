@@ -1,5 +1,5 @@
+import os
 from setuptools import find_packages, setup
-
 
 INSTALL_REQUIREMENTS = [
     'Django>=2.2,<3.0',
@@ -31,5 +31,6 @@ setup(
     ]},
     install_requires=INSTALL_REQUIREMENTS,
     packages=find_packages(),
+    include_package_data=True,
     zip_safe=False,
 )
