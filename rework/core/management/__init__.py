@@ -1,14 +1,13 @@
 import sys
 
-from . import project, app, deploy
-
+from . import project, app, deploy, migrate
 
 COMMANDS = {
     'init': project.init,
     'add': app.add,
     'deploy': deploy.DeployCommand(),
+    'migrate': migrate.migrate
 }
-
 
 def execute_from_command_line(argv=None):
     argv = argv or sys.argv[:]
