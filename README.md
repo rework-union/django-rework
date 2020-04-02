@@ -19,7 +19,13 @@ python3 -m pip install django-rework
 **Start a new project**
 
 ```bash
-django-rework init projectname
+django-rework init myproject
+```
+
+**Add a app package**
+
+```bash
+django-rework add users
 ```
 
 **Add deployment configurations**
@@ -28,17 +34,15 @@ django-rework init projectname
 django-rework deploy --init
 ```
 
+**Deploy to test or production**
+
+```bash
+django-rework deploy
+```
+
 <br>
 
 # _RoadMap_
-
-`v0.4`
-
-<u>Expected release at 2020/6/30</u>
-
-> - [ ] Add contrib app: O2O (app name still uncertain)
->
-> - [ ] Add contrib app: shopcart (app name still uncertain)
 
 `v0.3`
 
