@@ -10,7 +10,7 @@ INSTALL_REQUIREMENTS = [
     'fabric==2.5.0',
     'Markdown==3.1.1',
     'mysqlclient==1.4.6',
-    'Pillow==6.2.0',
+    'Pillow==6.2.2',
     'drf-nested-routers==0.91',
     'drf-writable-nested==0.5.4',
     'drf-yasg==1.17',
