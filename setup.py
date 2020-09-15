@@ -25,7 +25,11 @@ setup(
     author_email='josh.yu_8@live.com',
     license='MIT',
     entry_points={
-        'console_scripts': ['django-rework = rework.core.management:execute_from_command_line', ]
+        'console_scripts':
+            [
+                'rek = rework.core.management:execute_from_command_line',
+                'django-rework = rework.core.management:execute_from_command_line',
+            ]
     },
     install_requires=INSTALL_REQUIREMENTS,
     packages=find_packages(),

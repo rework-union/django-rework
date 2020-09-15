@@ -16,15 +16,19 @@ python3 -m pip install django-rework
 
 # _Generic CLI Commands_
 
+> **rek** is the short command for `django-rework`
+
 **Start a new project**
 
 ```bash
+rek init myproject
 django-rework init myproject
 ```
 
 **Add a app package**
 
 ```bash
+rek add users
 django-rework add users
 ```
 
@@ -53,8 +57,7 @@ $ python3 -m pip install yapf
 $ which yapf
 # (/usr/local/python3.6/bin/yapf) possiable location
 
-ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
-
+$ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
 ``` 
 
 `yapf` 只需要在 PyCharm 插件市场搜索 `yapf` 可以方便的集成于 PyCharm
