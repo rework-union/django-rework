@@ -1,4 +1,3 @@
-import os
 from setuptools import find_packages, setup
 
 INSTALL_REQUIREMENTS = [
@@ -17,7 +16,6 @@ INSTALL_REQUIREMENTS = [
     'wechatpy==1.8',
 ]
 
-
 setup(
     name='django-rework',
     version='0.1.1',
@@ -26,9 +24,9 @@ setup(
     author='rework union',
     author_email='josh.yu_8@live.com',
     license='MIT',
-    entry_points={'console_scripts': [
-        'django-rework = rework.core.management:execute_from_command_line',
-    ]},
+    entry_points={
+        'console_scripts': ['django-rework = rework.core.management:execute_from_command_line', ]
+    },
     install_requires=INSTALL_REQUIREMENTS,
     packages=find_packages(),
     include_package_data=True,
