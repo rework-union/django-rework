@@ -1,4 +1,3 @@
-import os
 from setuptools import find_packages, setup
 
 INSTALL_REQUIREMENTS = [
@@ -10,13 +9,12 @@ INSTALL_REQUIREMENTS = [
     'fabric==2.5.0',
     'Markdown==3.1.1',
     'mysqlclient==1.4.6',
-    'Pillow==6.2.0',
+    'Pillow==6.2.2',
     'drf-nested-routers==0.91',
     'drf-writable-nested==0.5.4',
     'drf-yasg==1.17',
     'wechatpy==1.8',
 ]
-
 
 setup(
     name='django-rework',
@@ -26,9 +24,13 @@ setup(
     author='rework union',
     author_email='josh.yu_8@live.com',
     license='MIT',
-    entry_points={'console_scripts': [
-        'django-rework = rework.core.management:execute_from_command_line',
-    ]},
+    entry_points={
+        'console_scripts':
+            [
+                'rek = rework.core.management:execute_from_command_line',
+                'django-rework = rework.core.management:execute_from_command_line',
+            ]
+    },
     install_requires=INSTALL_REQUIREMENTS,
     packages=find_packages(),
     include_package_data=True,

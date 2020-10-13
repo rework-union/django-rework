@@ -16,10 +16,20 @@ python3 -m pip install django-rework
 
 # _Generic CLI Commands_
 
+> **rek** is the short command for `django-rework`
+
 **Start a new project**
 
 ```bash
-django-rework init projectname
+rek init myproject
+django-rework init myproject
+```
+
+**Add a app package**
+
+```bash
+rek add users
+django-rework add users
 ```
 
 **Add deployment configurations**
@@ -28,46 +38,26 @@ django-rework init projectname
 django-rework deploy --init
 ```
 
-<br>
+**Deploy to test or production**
 
-# _RoadMap_
+```bash
+django-rework deploy
+```
 
-`v0.4`
+# Code Format 代码格式化
 
-<u>Expected release at 2020/6/30</u>
+代码格式化使用的是 Google 的 `yapf`，建议全局安装：
+```bash
+# install yapf using pip in python3
+$ python3 -m pip install yapf
 
-> - [ ] Add contrib app: O2O (app name still uncertain)
->
-> - [ ] Add contrib app: shopcart (app name still uncertain)
+# find and create soft link to `/usr/local/bin/yapf`
+# find yapf execute file 
+ 
+$ which yapf
+# (/usr/local/python3.6/bin/yapf) possiable location
 
-`v0.3`
+$ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
+``` 
 
-<u>Expected release at 2020/5/31</u>
-
-> - [ ] Docs for core and exists Apps
->
-> - [ ] Extend features of contrib apps: users / paid content
-
-`v0.2`
-
-<u>Expected release at 2020/4/30</u>
-
-> - [ ] Code style: black
->
-> - [ ] Add test
->
-> - [ ] Optimized CLI console logs
->
-> - [ ] Add contrib app: paid content (app name still uncertain)
-
-`v0.1`
-
-<u>Expected release at 2020/4/10</u>
-
-> - [x] Command `init`: start a project
->
-> - [x] Command `add`: add contrib apps
->
-> - [x] Copy deploy files into project, using `django-rework deploy --init`
->
-> - [ ] Add contrib app: users
+`yapf` 只需要在 PyCharm 插件市场搜索 `yapf` 可以方便的集成于 PyCharm
