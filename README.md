@@ -61,3 +61,27 @@ $ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
 ``` 
 
 `yapf` 只需要在 PyCharm 插件市场搜索 `yapf` 可以方便的集成于 PyCharm
+
+
+### CONTRIBUTE
+
+**Developer Environment**
+
+```bash
+pip install -r requirements_dev.txt
+``` 
+
+
+**Tag a new release**
+
+tag a version:
+
+```bash
+git tag -a v0.1.0
+```
+
+push tags to remote:
+
+```bash
+git push --tags
+```
