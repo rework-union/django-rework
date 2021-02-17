@@ -2,7 +2,7 @@
 
 [![Downloads](https://pepy.tech/badge/django-rework)](https://pepy.tech/project/django-rework)
 [![PyPI](https://img.shields.io/pypi/v/django-rework)](https://pypi.org/project/django-rework/)
-[![Python](https://img.shields.io/pypi/pyversions/django-rework)](https://www.python.org)
+[![Python](https://img.shields.io/pypi/pyversions/django)](https://www.python.org)
 [![Django](https://img.shields.io/pypi/djversions/django-rework)](https://www.djangoproject.com)
 [![License](https://img.shields.io/pypi/l/django-rework)](https://opensource.org/licenses/MIT)
 
