@@ -1,24 +1,25 @@
 from setuptools import find_packages, setup
 
+# version Operators
+# https://pip.pypa.io/en/latest/user_guide/#fixing-conflicting-dependencies
 INSTALL_REQUIREMENTS = [
     'Django>=2.2,<3.0',
     'django-cors-headers==3.1.0',
-    'django-filter==2.0.0',
+    'django-filter>=2.0,<3.0',
     'django-mysql==3.2.0',
-    'djangorestframework==3.10.1',
-    'fabric==2.5.0',
-    'Markdown==3.1.1',
+    'djangorestframework>=3.10.1,<4.0',
+    'fabric~=2.5',
+    'Markdown~=3.1',
     'mysqlclient==1.4.6',
-    'Pillow==6.2.2',
-    'drf-nested-routers==0.91',
-    'drf-writable-nested==0.5.4',
-    'drf-yasg==1.17',
-    'wechatpy==1.8',
+    'Pillow>=6.2.2,<=8.1.0',
+    'drf-nested-routers~=0.91',
+    'drf-yasg~=1.17',
+    'wechatpy~=1.8',
 ]
 
 setup(
     name='django-rework',
-    version='0.1.1',
+    version='0.1.2',
     description='Rapid develop framework base on Django',
     url='https://github.com/rework-union/django-rework',
     author='rework union',

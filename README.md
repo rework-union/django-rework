@@ -2,7 +2,7 @@
 
 [![Downloads](https://pepy.tech/badge/django-rework)](https://pepy.tech/project/django-rework)
 [![PyPI](https://img.shields.io/pypi/v/django-rework)](https://pypi.org/project/django-rework/)
-[![Python](https://img.shields.io/pypi/pyversions/django-rework)](https://www.python.org)
+[![Python](https://img.shields.io/pypi/pyversions/django)](https://www.python.org)
 [![Django](https://img.shields.io/pypi/djversions/django-rework)](https://www.djangoproject.com)
 [![License](https://img.shields.io/pypi/l/django-rework)](https://opensource.org/licenses/MIT)
 
@@ -61,3 +61,27 @@ $ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
 ``` 
 
 `yapf` 只需要在 PyCharm 插件市场搜索 `yapf` 可以方便的集成于 PyCharm
+
+
+### CONTRIBUTE
+
+**Developer Environment**
+
+```bash
+pip install -r requirements_dev.txt
+``` 
+
+
+**Tag a new release**
+
+tag a version:
+
+```bash
+git tag -a v0.1.0
+```
+
+push tags to remote:
+
+```bash
+git push --tags
+```
