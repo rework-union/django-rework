@@ -6,6 +6,8 @@ Using the commands to initialize new project or management existing project
 import os
 import shutil
 import subprocess
+
+from ..utils import say
 from ... import core
 
 
@@ -26,11 +28,11 @@ def init(params):
     else:
         project_dir = os.path.join(base_dir, project)
 
-    print(f'- Initialing project: ``{project}`` using `django-admin` command')
+    say(f'Initialing project: ``{project}`` using `django-admin` command')
     result = subprocess.run(["django-admin", "startproject", *params])
 
     if result.returncode != 0:
-        print(f'{os.linesep} 🌶 Initialized failed!')
+        say(f'Initialized failed!', icon='🌶 ', wrap='C')
         return False
 
     # Changed the settings files to satisfy multi environments
