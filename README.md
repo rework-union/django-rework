@@ -44,9 +44,9 @@ django-rework deploy --init
 django-rework deploy
 ```
 
-# Code Format 代码格式化
+# Code Format
 
-代码格式化使用的是 Google 的 `yapf`，建议全局安装：
+Code format using Google 的 `yapf`，recommend to install `yapf` globally：
 ```bash
 # install yapf using pip in python3
 $ python3 -m pip install yapf
@@ -55,13 +55,10 @@ $ python3 -m pip install yapf
 # find yapf execute file 
  
 $ which yapf
-# (/usr/local/python3.6/bin/yapf) possiable location
+# (/usr/local/python3.6/bin/yapf) possible location
 
 $ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
-``` 
-
-`yapf` 只需要在 PyCharm 插件市场搜索 `yapf` 可以方便的集成于 PyCharm
-
+```
 
 ### CONTRIBUTE
 
