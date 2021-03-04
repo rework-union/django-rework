@@ -1,7 +1,3 @@
-"""
-Utilities for managements
-"""
-
 import os
 
 

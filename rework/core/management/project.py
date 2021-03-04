@@ -1,31 +1,40 @@
-"""
-Django Rework project managements
+"""project managements
+
+Using the commands to initialize new project or management existing project
 """
 
 import os
 import shutil
 import subprocess
+from ... import core
 
 
 def init(params):
     """Initialize django rework project"""
 
     project = params[0]
+    try:
+        path = params[1]
+    except IndexError:
+        path = None
+
     base_dir = os.getcwd()
-    project_dir = os.path.join(base_dir, project)
 
-    print('Start initialing project:', project)
+    # when path is current dir, project dir is base dir
+    if path == '.':
+        project_dir = base_dir
+    else:
+        project_dir = os.path.join(base_dir, project)
 
-    # Start a django project using `django-admin` command
-    print('Start a django project using `django-admin` command')
-    result = subprocess.run(["django-admin", "startproject", project])
+    print(f'- Initialing project: ``{project}`` using `django-admin` command')
+    result = subprocess.run(["django-admin", "startproject", *params])
 
     if result.returncode != 0:
-        print('Initialized failed!')
+        print(f'{os.linesep} 🌶 Initialized failed!')
         return False
 
     # Changed the settings files to satisfy multi environments
-    print('Changed the settings files to satisfy multi environments')
+    print(f'- Changed the settings files to satisfy multi environments')
 
     settings_folder = os.path.join(project_dir, project)
 
@@ -72,12 +81,8 @@ end_of_line = lf
 insert_final_newline = true
 
 # Matches multiple files with brace expansion notation
-# Set default charset
 [*.{js,html,css}]
 charset = utf-8
-
-# Tab indentation (no size specified)
-[*.{js,html,css}]
 indent_style = space
 tab_width = 2
 
@@ -115,6 +120,6 @@ venv
 settings/local.py
 """)
         with open(os.path.join(base_dir, 'requirements.txt'), 'w') as f:
-            f.write("django-rework==0.1.1\n")
+            f.write(f'django-rework=={core.__version__}{os.linesep}')
 
-    print('Initialized completely!')
+    print(f'{os.linesep} 🎨 Initialized completely!')

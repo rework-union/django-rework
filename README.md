@@ -16,32 +16,30 @@ python3 -m pip install django-rework
 
 # _Generic CLI Commands_
 
-> **rek** is the short command for `django-rework`
-
 **Start a new project**
 
 ```bash
-rek init myproject
-django-rework init myproject
+# recommend to append a dot(.), it will create project in current dir
+rework init myproject . 
+rework init myproject
 ```
 
 **Add a app package**
 
 ```bash
-rek add users
-django-rework add users
+rework add users
 ```
 
 **Add deployment configurations**
 
 ```bash
-django-rework deploy --init
+rework deploy --init
 ```
 
 **Deploy to test or production**
 
 ```bash
-django-rework deploy
+rework deploy
 ```
 
 # Code Format

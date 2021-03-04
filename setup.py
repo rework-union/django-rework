@@ -29,8 +29,7 @@ setup(
     entry_points={
         'console_scripts':
             [
-                'rek = rework.core.management:execute_from_command_line',
-                'django-rework = rework.core.management:execute_from_command_line',
+                'rework = rework.core.management:execute_from_command_line',
             ]
     },
     install_requires=INSTALL_REQUIREMENTS,

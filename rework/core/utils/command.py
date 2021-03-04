@@ -1,8 +1,5 @@
-# -*- coding: UTF-8 -*-
-
 import os
 from abc import ABC
-from argparse import ArgumentParser
 
 
 class BaseCommand(ABC):
