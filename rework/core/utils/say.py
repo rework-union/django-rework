@@ -6,7 +6,7 @@ def say(content, icon=None, wrap=''):
         'B' - before content,
         'C' - both
     """
-    leading = f'{icon} ' if icon else '  - '
+    leading = f'{icon:3}' if icon else '  - '
     wrap = wrap.upper()
     if wrap in ['B', 'C']:
         print()
