@@ -4,7 +4,7 @@ from rework import core
 # version Operators
 # https://pip.pypa.io/en/latest/user_guide/#fixing-conflicting-dependencies
 INSTALL_REQUIREMENTS = [
-    'Django>=2.2,<3.0',
+    'Django>=2.2,<=3.2',
     'django-cors-headers==3.1.0',
     'django-filter>=2.0,<3.0',
     'django-mysql==3.2.0',
@@ -36,4 +36,23 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Web Environment',
+        'Framework :: Django',
+        'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3 :: Only',
+        'Topic :: Internet :: WWW/HTTP',
+    ],
 )
