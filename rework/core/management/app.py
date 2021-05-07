@@ -5,7 +5,7 @@ Django Rework App managements
 import os
 import re
 
-from . import utils
+from .. import utils
 
 
 def add(params):

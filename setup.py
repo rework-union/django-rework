@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+from rework import core
 
 # version Operators
 # https://pip.pypa.io/en/latest/user_guide/#fixing-conflicting-dependencies
@@ -19,7 +20,7 @@ INSTALL_REQUIREMENTS = [
 
 setup(
     name='django-rework',
-    version='0.1.2',
+    version=core.__version__,
     description='Rapid develop framework base on Django',
     url='https://github.com/rework-union/django-rework',
     author='rework union',
@@ -28,8 +29,7 @@ setup(
     entry_points={
         'console_scripts':
             [
-                'rek = rework.core.management:execute_from_command_line',
-                'django-rework = rework.core.management:execute_from_command_line',
+                'rework = rework.core.management:execute_from_command_line',
             ]
     },
     install_requires=INSTALL_REQUIREMENTS,

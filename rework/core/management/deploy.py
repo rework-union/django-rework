@@ -1,8 +1,8 @@
-# -*- coding: UTF-8 -*-
 import os
 import shutil
 
-from .base_management import BaseCommand
+from ..utils.command import BaseCommand
+
 
 class DeployCommand(BaseCommand):
     def handle(self, params):
@@ -12,10 +12,9 @@ class DeployCommand(BaseCommand):
                 core_dir = os.path.join(self.core_dir, 'deploy')
                 shutil.copytree(core_dir, working_dir)
             except Exception as e:
-                print (e)
+                print(e)
         else:
             pass
-
 
     def __call__(self, params):
         return self.handle(params)

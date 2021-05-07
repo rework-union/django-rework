@@ -1,6 +1,8 @@
+import os
 import sys
 
 from . import project, app, deploy, migrate
+from ..utils import say
 
 COMMANDS = {
     'init': project.init,
@@ -9,13 +11,14 @@ COMMANDS = {
     'migrate': migrate.migrate
 }
 
+
 def execute_from_command_line(argv=None):
     argv = argv or sys.argv[:]
-    print('Hello, Rework CLI, you argv is %s' % argv)
+    say(f'Hello, Rework CLI, you argv is {argv}', icon='🏂', wrap='C')
 
     command = argv[1]
 
     if command in COMMANDS:
         COMMANDS.get(command)(argv[2:])
     else:
-        print('[Error] Command not found!')
+        say(f'Command not found!', icon='🌶️ ', wrap='C')
