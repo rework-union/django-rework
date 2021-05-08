@@ -7,7 +7,7 @@ import os
 import shutil
 import subprocess
 
-from ..utils import say
+from ..utils import say, copy_template_to_file
 from ... import core
 
 
@@ -36,9 +36,12 @@ def init(params):
         return False
 
     # Changed the settings files to satisfy multi environments
-    print(f'- Changed the settings files to satisfy multi environments')
+    say(f'Changed the settings files to satisfy multi environments')
 
     settings_folder = os.path.join(project_dir, project)
+
+    # template variables
+    kwargs = {'django_rework_version': core.__version__}
 
     #  1. Make a package named `settings`
     settings_package_path = os.path.join(settings_folder, 'settings')
@@ -69,59 +72,12 @@ def init(params):
 
     # Update settings
 
+    # fabric DevOps
+    copy_template_to_file('fabfile.py', base_dir, **kwargs)
+
     # Others
-
-    with open(os.path.join(base_dir, '.editorconfig'), 'w') as f:
-        f.write("""# EditorConfig is awesome
-
-# top-most EditorConfig file
-root = true
-
-# Unix-style newlines with a newline ending every file
-[*]
-end_of_line = lf
-insert_final_newline = true
-
-# Matches multiple files with brace expansion notation
-[*.{js,html,css}]
-charset = utf-8
-indent_style = space
-tab_width = 2
-
-[*.py]
-max_line_length = 100
-
-""")
-
-    with open(os.path.join(base_dir, '.gitignore'), 'w') as f:
-        f.write("""### Django ###
-*.log
-*.pot
-*.pyc
-__pycache__/
-
-# ide
-.idea/
-
-# hidden files
-.*
-!.gitignore
-!.editorconfig
-
-# celery
-celerybeat.pid
-
-# static generated
-static_root/
-
-# virtual env
-venv
-
-.doc
-
-settings/local.py
-""")
-        with open(os.path.join(base_dir, 'requirements.txt'), 'w') as f:
-            f.write(f'django-rework=={core.__version__}{os.linesep}')
+    copy_template_to_file('.editorconfig', base_dir, **kwargs)
+    copy_template_to_file('.gitignore', base_dir, **kwargs)
+    copy_template_to_file('requirements.txt', base_dir, **kwargs)
 
     print(f'{os.linesep} 🎨 Initialized completely!')
