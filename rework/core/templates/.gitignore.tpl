@@ -24,3 +24,4 @@ venv
 .doc
 
 settings/local.py
+settings/dev.local.py

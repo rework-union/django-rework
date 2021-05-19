@@ -47,6 +47,6 @@ def copy_template_to_file(file_path, target_path, **kwargs):
 
     t = Template(content)
 
-    target = os.path.join(target_path, file_path)
+    target = os.path.join(target_path, file_path.replace('project', kwargs.get('project')))
     with open(target, 'w') as f:
         f.write(t.substitute(**kwargs))

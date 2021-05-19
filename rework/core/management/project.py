@@ -41,14 +41,17 @@ def init(params):
     settings_folder = os.path.join(project_dir, project)
 
     # template variables
-    kwargs = {'django_rework_version': core.__version__}
+    kwargs = {
+        'django_rework_version': core.__version__,
+        'project': project,
+    }
 
     #  1. Make a package named `settings`
     settings_package_path = os.path.join(settings_folder, 'settings')
     base_settings_path = os.path.join(settings_package_path, 'base')
     os.makedirs(base_settings_path)
 
-    #  2. Move origin settings.py to settings/__.init.py
+    #  2. Move origin settings.py to settings/base/__init__.py
     origin_settings_file = os.path.join(settings_folder, 'settings.py')
     shutil.move(
         origin_settings_file,
@@ -56,19 +59,10 @@ def init(params):
     )
 
     #  3. Added multi env setting files
-    with open(os.path.join(settings_package_path, 'production.py'), 'w') as f:
-        f.write('from .base import *\n')
-        f.write('\n')
-        f.write('DEBUG = False')
-
-    with open(os.path.join(settings_package_path, 'test.py'), 'w') as f:
-        f.write('from .base import *\n')
-
-    with open(os.path.join(settings_package_path, 'development.py'), 'w') as f:
-        f.write('from .base import *\n')
-
-    with open(os.path.join(settings_package_path, 'local.py'), 'w') as f:
-        f.write('from .base import *\n')
+    settings_tpl_path = 'project/settings/'
+    envs = ['prod', 'test', 'dev', 'dev.local']
+    for env in envs:
+        copy_template_to_file(f'{settings_tpl_path}{env}.py', base_dir, **kwargs)
 
     # Update settings
 
