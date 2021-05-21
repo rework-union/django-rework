@@ -1,6 +1,11 @@
 from setuptools import find_packages, setup
 from rework import core
 
+
+def read(f):
+    return open(f, 'r', encoding='utf-8').read()
+
+
 # version Operators
 # https://pip.pypa.io/en/latest/user_guide/#fixing-conflicting-dependencies
 INSTALL_REQUIREMENTS = [
@@ -22,15 +27,14 @@ setup(
     name='django-rework',
     version=core.__version__,
     description='Rapid develop framework base on Django',
+    long_description=read('README.md'),
+    long_description_content_type='text/markdown',
     url='https://github.com/rework-union/django-rework',
     author='rework union',
     author_email='josh.yu_8@live.com',
     license='MIT',
     entry_points={
-        'console_scripts':
-            [
-                'rework = rework.core.management:execute_from_command_line',
-            ]
+        'console_scripts': ['rework = rework.core.management:execute_from_command_line', ]
     },
     install_requires=INSTALL_REQUIREMENTS,
     packages=find_packages(),
