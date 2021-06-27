@@ -1,7 +1,3 @@
-"""
-Setup server configurations from a new server
-Support CentOS 7
-"""
 from ..hosts import hosts
 from ...utils import say
 
