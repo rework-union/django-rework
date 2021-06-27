@@ -16,16 +16,30 @@ value is
 ```
 
 """
+import inspect
+import os
 from collections import OrderedDict
 
 from fabric import Connection
-from . import ENV
+
+from .. import devops
+from ..utils import say
 
 hosts = OrderedDict()  # all hosts loads in top of fabric file
+
+ENV = devops.ENV
 
 
 def loads(host, value):
     hosts[host] = value
+
+    # update project name
+    previous_frame = inspect.currentframe().f_back
+    filename, line_number, function_name, lines, index = inspect.getframeinfo(previous_frame)
+
+    devops.PROJECT = os.path.dirname(filename).rsplit(os.sep, 1).pop(1).replace('-server', '')
+
+    say(f'Project `{devops.PROJECT}` loads host successfully!', icon='✨', wrap='C')
 
 
 def get_host_value(c):

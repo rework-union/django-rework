@@ -6,7 +6,7 @@ Default environments is `dev`, `test`, `prod`
 """
 from fabric import task
 
-from .tasks import Hi, Environment, SetupServer
+from .tasks import Hi, Environment, SetupServer, Deploy
 
 
 @task
@@ -36,6 +36,6 @@ def setup_server(c):
 
 
 @task
-def deploy(c):
+def deploy(c, requirements_update=False):
     """Deploy"""
-    pass
+    return Deploy(c)(requirements_update=requirements_update)

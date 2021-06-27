@@ -85,6 +85,11 @@ By default, environments is `dev`, `test`, `prod`, every environment name is a g
 fab test deploy
 ```
 
+If you want to update requirements, you should add arguments `-r` or `--requirements_update`
+```bash
+fab test deploy -r
+```
+
 
 # _Code Format_
 

@@ -7,5 +7,5 @@ class Hi:
         self.c = c
 
     def __call__(self, *args, **kwargs):
-        say('Hi, DevOps with Fabric is ready!', icon=' 🎉')
+        say('Hi, DevOps with Fabric is ready!', icon='🎉')
         say('loaded hosts: %s' % list(hosts.keys()), wrap='A')
