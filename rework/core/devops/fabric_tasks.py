@@ -5,11 +5,20 @@ Default environments is `dev`, `test`, `prod`
 
 """
 from fabric import task
+from .hosts import hosts, get_host_value
+from ..utils import say
+from .tasks import Hi, SetupServer
 
 
 @task
 def hi(c):
-    print(f'Hi, DevOps with Fabric is ready! {c.host}')
+    return Hi(c)()
+
+
+@task
+def setup_server(c):
+    """Setup a new CentOS server"""
+    return SetupServer(c)()
 
 
 @task

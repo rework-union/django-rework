@@ -20,8 +20,9 @@ python3 -m pip install django-rework
 
 ```bash
 # recommend to append a dot(.), it will create project in current dir
-rework init myproject . 
-rework init myproject
+# eg: initialize a new project named `pony`
+rework init pony . 
+rework init pony
 ```
 
 **Add a app package**
