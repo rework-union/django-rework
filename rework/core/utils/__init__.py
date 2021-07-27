@@ -27,7 +27,16 @@ def get_settings_path(project=None):
     """Determined the project path"""
     base_dir = os.getcwd()
     project = project or get_project_name()
-    return os.path.join(base_dir, project, project, 'settings')
+
+    path = os.path.join(base_dir, project, project, 'settings')
+    if os.path.exists(path):
+        return path
+
+    path = os.path.join(base_dir, project, 'settings')
+    if os.path.exists(path):
+        return path
+
+    raise Exception('Determine project path failed!')
 
 
 def copy_template_to_file(file_path, target_path, **kwargs):

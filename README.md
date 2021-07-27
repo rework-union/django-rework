@@ -115,6 +115,12 @@ $ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
 pip install -r requirements_dev.txt
 ``` 
 
+### Run tests
+
+```bash
+python ./tests/runtests.py
+```
+
 
 ### Tag a new release
 
