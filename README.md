@@ -25,7 +25,7 @@ rework init pony .
 rework init pony
 ```
 
-### Add a app package
+### Add App
 
 ```bash
 rework add users
@@ -37,11 +37,18 @@ rework add users
 rework deploy --init
 ```
 
-**Deploy to test or production**
+### Deploy to test or production
 
 ```bash
 rework deploy
 ```
+
+# App docs
+
+| App      | Description | docs |
+| ----------- | ----------- | ----------- |
+| users      | Users system       | [users.md](docs/users.md) |
+
 
 # DevOps Fabric scripts 
 
