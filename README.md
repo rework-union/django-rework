@@ -16,7 +16,7 @@ python3 -m pip install django-rework
 
 # _Generic CLI Commands_
 
-**Start a new project**
+## Start a new project
 
 ```bash
 # recommend to append a dot(.), it will create project in current dir
@@ -24,23 +24,29 @@ rework init myproject .
 rework init myproject
 ```
 
-**Add a app package**
+## Add App
 
 ```bash
 rework add users
 ```
 
-**Add deployment configurations**
+## Add deployment configurations
 
 ```bash
 rework deploy --init
 ```
 
-**Deploy to test or production**
+## Deploy to test or production
 
 ```bash
 rework deploy
 ```
+
+# App docs
+
+| App      | Description | docs |
+| ----------- | ----------- | ----------- |
+| users      | Users system       | [users.md](docs/users.md) |
 
 # Code Format
 
@@ -58,16 +64,16 @@ $ which yapf
 $ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
 ```
 
-### CONTRIBUTE
+# CONTRIBUTE
 
-**Developer Environment**
+## Developer Environment
 
 ```bash
 pip install -r requirements_dev.txt
 ``` 
 
 
-**Tag a new release**
+## Tag a new release
 
 tag a version:
 
