@@ -4,21 +4,34 @@ Django Rework App managements
 
 import os
 import re
+import subprocess
 
 from .. import utils
+from ..utils import say
+
+
+def setup_auth_user_model(content):
+    # Setup `AUTH_USER_MODEL` to `basic.User` if adding app is `users`,
+    # and generate `basic` App
+    result = subprocess.run(["django-admin", "startapp", "basic"])
+    if result.returncode != 0:
+        say(f'Generate `basic` App failed!', icon='🌶 ', wrap='C')
+        return False
+
+    pattern = '# {!AUTH_USER_MODEL}'
+    block = """AUTH_USER_MODEL = 'basic.User'"""
+    content = content.replace(pattern, block)
+
+    return content
 
 
 def add(params):
     """Add apps to project"""
-
-    app = params[0]
-
-    print('Start adding app:', app)
+    app = params[0].lower()
+    say(f'Start adding app: {app}')
 
     # Add app name to base settings
-    settings_file = os.path.join(
-        utils.get_settings_path(), 'base', '__init__.py',
-    )
+    settings_file = os.path.join(utils.get_settings_path(), 'base', '__init__.py')
     with open(settings_file, 'r+') as file:
         # check where app in INSTALLED_APPS
         content = file.read()
@@ -36,20 +49,25 @@ def add(params):
 
         for exist_app in re.findall(r"(?<=').*(?=')", installed_apps_block):
             if exist_app == app_full_name:
-                print(f'[ERROR] App {app_full_name} is already exists')
+                say(f'[ERROR] App {app_full_name} is already exists')
                 return False
 
         installed_apps_block = re.sub(
-            r'\n]', f"\n    '{app_full_name}',\n]",
+            r'\n]',
+            f"\n    '{app_full_name}',\n]",
             installed_apps_block,
         )
 
-        print('installed_apps_block', installed_apps_block)
+        say(f'installed_apps_block {installed_apps_block}')
 
         content = re.sub(installed_apps_pattern, installed_apps_block, content)
-        print('content', content)
+
+        if app == 'users':
+            content = setup_auth_user_model(content)
+
+        say(f'content {content}')
         file.seek(0)
         file.truncate()
         file.write(content)
 
-    print('Added completely!')
+    say('Added completely!')

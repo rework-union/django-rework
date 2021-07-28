@@ -8,20 +8,7 @@ def read(f):
 
 # version Operators
 # https://pip.pypa.io/en/latest/user_guide/#fixing-conflicting-dependencies
-INSTALL_REQUIREMENTS = [
-    'Django>=2.2,<=3.2',
-    'django-cors-headers==3.1.0',
-    'django-filter>=2.0,<3.0',
-    'django-mysql==3.2.0',
-    'djangorestframework>=3.10.1,<4.0',
-    'fabric~=2.5',
-    'Markdown~=3.1',
-    'mysqlclient==1.4.6',
-    'Pillow>=6.2.2,<=8.1.0',
-    'drf-nested-routers~=0.91',
-    'drf-yasg~=1.17',
-    'wechatpy~=1.8',
-]
+INSTALL_REQUIREMENTS = read('requirements.txt').splitlines()
 
 setup(
     name='django-rework',

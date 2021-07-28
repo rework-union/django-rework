@@ -11,6 +11,24 @@ from ..utils import say, copy_template_to_file
 from ... import core
 
 
+def add_tags_to_base_settings(file_path):
+    with open(file_path, 'r+') as f:
+        content = f.read()
+
+        # AUTH_USER_MODEL tag
+        content = content.replace(
+            '# Password validation', '\n'.join([
+                '# {!AUTH_USER_MODEL}',
+                '',
+                '# Password validation',
+            ])
+        )
+
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+
 def init(params):
     """Initialize django rework project"""
 
@@ -53,10 +71,11 @@ def init(params):
 
     #  2. Move origin settings.py to settings/base/__init__.py
     origin_settings_file = os.path.join(settings_folder, 'settings.py')
-    shutil.move(
-        origin_settings_file,
-        os.path.join(base_settings_path, '__init__.py'),
-    )
+    target_settings_file = os.path.join(base_settings_path, '__init__.py')
+    shutil.move(origin_settings_file, target_settings_file)
+
+    # Added template tag to base/__init__.py
+    add_tags_to_base_settings(target_settings_file)
 
     #  3. Added multi env setting files
     settings_tpl_path = 'project/settings/'
