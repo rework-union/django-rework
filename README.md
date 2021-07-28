@@ -45,9 +45,9 @@ rework deploy
 
 # App docs
 
-| App      | Description | docs |
-| ----------- | ----------- | ----------- |
-| users      | Users system       | [users.md](docs/users.md) |
+| App      | Description | docs in English | 简体中文文档  |
+| -------- | ----------- | --------------- | ----------- |
+| users    | Users system       | [users.md](docs/users.md) | [users_cn.md](docs/users_cn.md) |
 
 
 # DevOps Fabric scripts 
