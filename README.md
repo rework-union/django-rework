@@ -19,9 +19,8 @@ python3 -m pip install django-rework
 ### Start a new project
 
 ```bash
-# recommend to append a dot(.), it will create project in current dir
+# It will create project in current dir
 # eg: initialize a new project named `pony`
-rework init pony . 
 rework init pony
 ```
 
@@ -125,7 +124,7 @@ pip install -r requirements_dev.txt
 ### Run tests
 
 ```bash
-python ./tests/runtests.py
+python tests/runtests.py
 ```
 
 

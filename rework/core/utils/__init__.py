@@ -39,6 +39,13 @@ def get_settings_path(project=None):
     raise Exception('Determine project path failed!')
 
 
+def get_root_urls_path(project=None):
+    """Determined the root urls path"""
+    base_dir = os.getcwd()
+    project = project or get_project_name()
+    return os.path.join(base_dir, project, 'urls.py')
+
+
 def copy_template_to_file(file_path, target_path, **kwargs):
     """
     copy from template to create project file
