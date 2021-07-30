@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 
+from .handlers.urls import UrlsHandle
 from .. import utils
 from ..utils import say
 
@@ -69,5 +70,9 @@ def add(params):
         file.seek(0)
         file.truncate()
         file.write(content)
+
+    # Added include url to root urls
+    urls_handler = UrlsHandle()
+    urls_handler.add_include_urls(app)
 
     say('Added completely!')
