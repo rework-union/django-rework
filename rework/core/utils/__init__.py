@@ -6,13 +6,11 @@ from .say import *
 def get_project_name():
     """Determined the project path
 
-    # TODO: the function must be improved
-    There will be only one folder in root directory,
-    it's the project name
+    project settings folder contains `wsgi.py`
     """
     for path in os.listdir('.'):
-        if os.path.isdir(path):
-            print('Determined the project path is: ', path)
+        if os.path.isdir(os.path.join(path, 'wsgi.py')):
+            say(f'Determined the project path is: {path}')
             return path
 
 

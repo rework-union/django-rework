@@ -36,7 +36,6 @@ def add(params):
     with open(settings_file, 'r+') as file:
         # check where app in INSTALLED_APPS
         content = file.read()
-        print('settings content is', content)
 
         app_full_name = f'rework.contrib.{app}'
         installed_apps_pattern = r'INSTALLED_APPS\s*\=\s*\[[\s\S]*?\]'
