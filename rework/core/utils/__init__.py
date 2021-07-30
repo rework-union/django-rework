@@ -9,7 +9,7 @@ def get_project_name():
     project settings folder contains `wsgi.py`
     """
     for path in os.listdir('.'):
-        if os.path.isdir(os.path.join(path, 'wsgi.py')):
+        if os.path.exists(os.path.join(path, 'wsgi.py')):
             say(f'Determined the project path is: {path}')
             return path
 
