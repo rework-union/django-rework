@@ -34,7 +34,7 @@ class UrlsHandle:
             self._save(f, content)
 
     def _add_route(self, content, namespace):
-        rule = f"    re_path(r'^api/{namespace}/', include('rework.contrib.{namespace}.urls', namespace='{namespace}')),\n"
+        rule = f"    re_path(r'^api/{namespace}/', include('rework.contrib.{namespace}.urls')),\n"
         pattern = r'urlpatterns = \[\n([^\n]*\n)*\]\n'
         match = re.search(pattern, content)
         if not match:
