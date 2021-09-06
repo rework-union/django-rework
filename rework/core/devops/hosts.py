@@ -27,8 +27,6 @@ from ..utils import say
 
 hosts = OrderedDict()  # all hosts loads in top of fabric file
 
-ENV = devops.ENV
-
 
 def loads(host, value):
     hosts[host] = value
@@ -53,8 +51,8 @@ def get_host_value(c):
     try:
         host = c.host
     except (KeyError, AttributeError):
-        if ENV in hosts:
-            host = ENV
+        if devops.ENV in hosts:
+            host = devops.ENV
         else:
             host = 'default'
 
@@ -65,8 +63,8 @@ def get_host_value(c):
 
     # Check whether ENV and host envs match
     host_envs = host_value.get('envs', [])
-    if ENV not in host_value.get('envs', []):
-        raise ValueError(f'Runtime env ({ENV}) is not match host envs ({host_envs})')
+    if devops.ENV not in host_value.get('envs', []):
+        raise ValueError(f'Runtime env ({devops.ENV}) is not match host envs ({host_envs})')
 
     return host, host_value
 
