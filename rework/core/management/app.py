@@ -17,7 +17,7 @@ def setup_auth_user_model(content):
     result = subprocess.run(["django-admin", "startapp", "basic"])
     if result.returncode != 0:
         say(f'Generate `basic` App failed!', icon='🌶 ', wrap='C')
-        return False
+        return content
 
     pattern = '# {!AUTH_USER_MODEL}'
     block = """AUTH_USER_MODEL = 'basic.User'"""
@@ -36,7 +36,6 @@ def add(params):
     with open(settings_file, 'r+') as file:
         # check where app in INSTALLED_APPS
         content = file.read()
-        print('settings content is', content)
 
         app_full_name = f'rework.contrib.{app}'
         installed_apps_pattern = r'INSTALLED_APPS\s*\=\s*\[[\s\S]*?\]'
@@ -58,6 +57,13 @@ def add(params):
             f"\n    '{app_full_name}',\n]",
             installed_apps_block,
         )
+
+        if app == 'users':
+            installed_apps_block = re.sub(
+                r'\n]',
+                f"\n    'basic',\n]",
+                installed_apps_block,
+            )
 
         say(f'installed_apps_block {installed_apps_block}')
 
