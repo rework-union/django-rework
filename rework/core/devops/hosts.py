@@ -72,10 +72,11 @@ def get_host_value(c):
 def connect(c):
     # create a fabric connection
     host, host_value = get_host_value(c)
-    default_user = 'root'
+
     return Connection(
         host_value.get('host'),
-        user=host_value.get('user', default_user),
+        user=host_value.get('user', 'root'),
+        port=host_value.get('port', 22),
         connect_kwargs={
             'password': host_value.get('password'),
         },
