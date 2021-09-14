@@ -134,4 +134,4 @@ dmypy.json
 .DS_Store
 
 # development examples folder
-examples
+pony-server
