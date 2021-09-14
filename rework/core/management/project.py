@@ -46,6 +46,7 @@ def init(params):
     # Others
     copy_template_to_file('.editorconfig', base_dir, **kwargs)
     copy_template_to_file('.gitignore', base_dir, **kwargs)
+    copy_template_to_file('.style.yapf', base_dir, **kwargs)
     copy_template_to_file('requirements.txt', base_dir, **kwargs)
 
     say(f'Initialized completely!', icon='🎨', wrap='C')
