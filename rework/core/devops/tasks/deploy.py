@@ -73,12 +73,14 @@ class Deploy:
             supervisor file in django-rework >= 0.3:
                 .deploy/supervisor/{self.project}_{self.env}.conf
         """
-        supervisor_path = f'{root}.deploy/supervisor/'
+        supervisor_path = f'.deploy/supervisor/'
 
         origin = f'{supervisor_path}{self.project}_{self.env}.conf'
         if not os.path.exists(origin):
             say(f'Supervisor file: {origin} not exists, try find another...')
             origin = f'{supervisor_path}{self.project}_supervisor_{self.env}.conf'
+
+        origin = f'{root}{origin}'
 
         destination = f'/etc/supervisor/conf.d/'
         self.c.run(f'cp {origin} {destination}')
