@@ -20,40 +20,83 @@ class Deploy:
         self.port = self.host_value.get('port', 22)
         self.password = self.host_value.get('password')
 
+        # Should reload nginx when it's configurations file changed
+        self._should_reload_nginx = False
+
     def __call__(self, *args, **kwargs):
+        # supervisor service name
+        service = f'{self.project}_{self.env}'
         if self.env == 'prod':
-            root = f'/opt/projects/{self.project}-server/'
-            service = f'{self.project}_server'
+            env_root = f'/opt/projects/'
             branch = 'master'
         elif self.env == 'test':
-            root = f'/opt/test-projects/{self.project}-server/'
-            service = f'{self.project}_server_test'
+            env_root = f'/opt/test-projects/'
             branch = 'test'
         elif self.env == 'dev':
-            root = f'/opt/dev-projects/{self.project}-server/'
-            service = f'{self.project}_server_dev'
+            env_root = f'/opt/dev-projects/'
             branch = 'dev'
         else:
             raise Exception('Un-supported Environment to deploy.')
+        root = f'{env_root}{self.project}-server/'
 
         say(f'Project root is: {root}')
 
         self.pull(branch, root)
+
+        if kwargs.get('infrastructure'):
+            self.setup_infrastructure(root)
+
         if kwargs.get('requirements_update'):
             self.update_requirement(root)
+
         self.migrate(root)
         self.collect_static(root)
-        self.copy_supervisor(root)
         self.restart(service)
+
+    def _copy_nginx(self, root):
+        """Copy nginx files"""
+        nginx_path = f'{root}.deploy/nginx/'
+
+        origin = f'{nginx_path}{self.project}_{self.env}.conf'
+
+        destination = f'/etc/nginx/conf.d/'
+        self.c.run(f'cp {origin} {destination}')
+        self._should_reload_nginx = True
+        say('Copied nginx configuration successfully')
+
+    def _copy_supervisor(self, root):
+        """Copy supervisor files
+
+        Compatible with Django-Rework ~0.2:
+            supervisor file in django-rework <= 0.2:
+                .deploy/supervisor/{self.project}_supervisor_{self.env}.conf
+            supervisor file in django-rework >= 0.3:
+                .deploy/supervisor/{self.project}_{self.env}.conf
+        """
+        supervisor_path = f'{root}.deploy/supervisor/'
+
+        origin = f'{supervisor_path}{self.project}_{self.env}.conf'
+        if not os.path.exists(origin):
+            say(f'Supervisor file: {origin} not exists, try find another...')
+            origin = f'{supervisor_path}{self.project}_supervisor_{self.env}.conf'
+
+        destination = f'/etc/supervisor/conf.d/'
+        self.c.run(f'cp {origin} {destination}')
+        say('Copied supervisor configuration successfully')
 
     def pull(self, branch, root):
         # Pull latest code
         say('Pull latest code from remote git')
         self.c.run(f'cd {root} && git checkout {branch} && git pull')
 
+    def setup_infrastructure(self, root):
+        say('Setup infrastructure')
+        self._copy_supervisor(root)
+        self._copy_nginx(root)
+
     def update_requirement(self, root):
         # Update requirements
-        say('install requirements')
+        say('Install requirements')
         self.c.run(f'cd {root} && python3 -m pip install -r requirements.txt')
 
     def migrate(self, root):
@@ -69,26 +112,9 @@ class Deploy:
         settings_suffix = f'--settings={self.project}.settings.{self.env}'
         self.c.run(f'cd {root} && python3 manage.py collectstatic {settings_suffix} --no-input')
 
-    def copy_supervisor(self, root):
-        """Copy supervisor files
-
-        Compatible with Django-Rework ~0.2:
-            supervisor file in django-rework <= 0.2:
-                .deploy/supervisor/{self.project}_supervisor_{self.env}.conf
-            supervisor file in django-rework >= 0.3:
-                .deploy/supervisor/{self.project}_{self.env}.conf
-        """
-        supervisor_path = f'{root}.deploy/supervisor/'
-
-        origin = f'{supervisor_path}{self.project}_supervisor_{self.env}.conf'
-        if not os.path.exists(origin):
-            say(f'Supervisor file: {origin} not exists, try find another...')
-            origin = f'{supervisor_path}{self.project}_{self.env}.conf'
-
-        destination = f'/etc/supervisor/conf.d/'
-        self.c.run(f'cp {origin} {destination}')
-
     def restart(self, service):
-        # Restart uwsgi service
+        # Restart infrastructure
         say('Restart the uwsgi service')
         self.c.run(f'supervisorctl restart {service}')
+        if self._should_reload_nginx:
+            self.c.run(f'nginx -s reload')

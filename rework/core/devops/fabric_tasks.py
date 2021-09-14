@@ -36,6 +36,9 @@ def setup_server(c):
 
 
 @task
-def deploy(c, requirements_update=False):
+def deploy(c, infrastructure=False, requirements_update=False):
     """Deploy"""
-    return Deploy(c)(requirements_update=requirements_update)
+    return Deploy(c)(
+        infrastructure=infrastructure,
+        requirements_update=requirements_update,
+    )
