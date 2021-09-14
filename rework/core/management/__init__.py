@@ -18,6 +18,12 @@ def execute_from_command_line(argv=None):
 
     command = argv[1]
 
+    # Hack the `init` command,
+    # append startproject path '.' to argv when command is init
+    if command == 'init':
+        argv.append('.')
+        say(f'Oh hacked, you argv is {argv}', icon='🏂', wrap='C')
+
     if command in COMMANDS:
         COMMANDS.get(command)(argv[2:])
     else:

@@ -1,6 +1,8 @@
 """
 Deploy to server 
 """
+import os
+
 from ..hosts import get_host_value, connect
 from ... import devops
 from ...utils import say
@@ -41,7 +43,7 @@ class Deploy:
             self.update_requirement(root)
         self.migrate(root)
         self.collect_static(root)
-        self.copy_uwsgi(root)
+        self.copy_supervisor(root)
         self.restart(service)
 
     def pull(self, branch, root):
@@ -67,9 +69,22 @@ class Deploy:
         settings_suffix = f'--settings={self.project}.settings.{self.env}'
         self.c.run(f'cd {root} && python3 manage.py collectstatic {settings_suffix} --no-input')
 
-    def copy_uwsgi(self, root):
-        # Copy uwsgi files
-        origin = f'{root}.deploy/supervisor/{self.project}_supervisor_{self.env}.conf'
+    def copy_supervisor(self, root):
+        """Copy supervisor files
+
+        Compatible with Django-Rework ~0.2:
+            supervisor file in django-rework <= 0.2:
+                .deploy/supervisor/{self.project}_supervisor_{self.env}.conf
+            supervisor file in django-rework >= 0.3:
+                .deploy/supervisor/{self.project}_{self.env}.conf
+        """
+        supervisor_path = f'{root}.deploy/supervisor/'
+
+        origin = f'{supervisor_path}{self.project}_supervisor_{self.env}.conf'
+        if not os.path.exists(origin):
+            say(f'Supervisor file: {origin} not exists, try find another...')
+            origin = f'{supervisor_path}{self.project}_{self.env}.conf'
+
         destination = f'/etc/supervisor/conf.d/'
         self.c.run(f'cp {origin} {destination}')
 

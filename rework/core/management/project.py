@@ -15,10 +15,6 @@ def init(params):
     """Initialize django rework project"""
 
     project = params[0]
-    try:
-        path = params[1]
-    except IndexError:
-        path = None
 
     base_dir = os.getcwd()
     project_dir = base_dir
