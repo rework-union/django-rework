@@ -116,7 +116,7 @@ class Deploy:
 
     def restart(self, service):
         # Restart infrastructure
-        say('Restart the uwsgi service')
+        say('Restart Supervisor and Nginx(if conf changed)')
         self.c.run(f'supervisorctl restart {service}')
         if self._should_reload_nginx:
             self.c.run(f'nginx -s reload')
