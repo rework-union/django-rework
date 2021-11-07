@@ -23,6 +23,8 @@ class SetupServer:
 
     def setup_python3(self):
         """Install python3 and uWSGI"""
+        version = '3.7.9'
+        major_version = version.rsplit('.', 1)[0]
         # Install Python
         self.c.run('yum -y update')
         self.c.run('yum groupinstall "Development tools"')
@@ -30,18 +32,19 @@ class SetupServer:
             self.c.run('yum -y install wget gcc make zlib-devel')
         except Exception as ex:
             print('ex', ex)
-        self.c.run('wget https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tgz')
-        self.c.run('tar xzf Python-3.6.9.tgz')
+        self.c.run(f'wget https://www.python.org/ftp/python/{version}/Python-{version}.tgz')
+        self.c.run(f'tar xzf Python-{version}.tgz')
         self.c.run(
-            'cd Python-3.6.9 && ./configure --with-ssl --prefix=/usr/local && make altinstall'
+            'cd Python-{version} && ./configure --with-ssl --prefix=/usr/local && make altinstall'
         )
-        self.c.run('ln -s /usr/local/bin/python3.6 /usr/bin/python3')
+        self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
         self.c.run('python3 -V')
-        self.c.run('rm -rf Python-3.6.9')
+        say('Clean up Python setup files')
+        self.c.run('rm -rf Python-{version}')
 
-        # Install uWSGI
+        # Install Gunicorn
         pypi_mirror_suffix = ' -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com'
-        self.c.run(f'python3 -m pip install uWSGI==2.0.18 {pypi_mirror_suffix}')
+        self.c.run(f'python3 -m pip install gunicorn {pypi_mirror_suffix}')
 
     def setup_nginx(self):
         # Install Nginx
@@ -49,7 +52,7 @@ class SetupServer:
 
     def setup_supervisor(self):
         # Install Supervisor in Python 2
-        self.c.run('curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py')
+        self.c.run('curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py -o get-pip.py')
         self.c.run('python get-pip.py')
         self.c.run('python -m pip install supervisor==4.1.0')
 
@@ -59,13 +62,12 @@ class SetupServer:
         self.c.run('sudo yum --enablerepo=mysql80-community install mysql-community-server')
 
     def setup_redis(self):
-        version = '4.0.11'
+        version = '4.0.14'
         download_url = f'http://download.redis.io/releases/redis-{version}.tar.gz'
         self.c.run(f'curl -o redis-{version}.tar.gz {download_url}')
         self.c.run(f'tar -zxvf redis-{version}.tar.gz')
 
-        # TODO: check the brew command
-        self.c.run(f'sudo cd redis-{version} & make')
+        self.c.run(f'cd redis-{version} & make')
         self.c.run(f'cd src && make install PREFIX=/usr/local/redis')
 
         self.c.run(f'mkdir -p /usr/local/redis/conf')

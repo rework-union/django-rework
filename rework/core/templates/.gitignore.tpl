@@ -11,6 +11,8 @@ __pycache__/
 .*
 !.gitignore
 !.editorconfig
+!.style.yapf
+!.deploy
 
 # celery
 celerybeat.pid
@@ -23,5 +25,9 @@ venv
 
 .doc
 
+# Django local settings
 **/settings/local.py
 **/settings/dev.local.py
+
+# Fabric deploy key files
+.deploy/*.pem

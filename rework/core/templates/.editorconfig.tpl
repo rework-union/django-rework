@@ -15,5 +15,5 @@ indent_style = space
 tab_width = 2
 
 [*.py]
-max_line_length = 100
+max_line_length = 99
 

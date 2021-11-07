@@ -77,7 +77,5 @@ def connect(c):
         host_value.get('host'),
         user=host_value.get('user', 'root'),
         port=host_value.get('port', 22),
-        connect_kwargs={
-            'password': host_value.get('password'),
-        },
+        connect_kwargs=host_value.get('connect_kwargs', {}),
     )
