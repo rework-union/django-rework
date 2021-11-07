@@ -56,21 +56,36 @@ rework deploy
 `django-rework` deal with DevOps using `Fabric`. You should add hosts configurations in `fabfile.py`.
 
 ```python
+import os
 from rework.core.devops.hosts import loads
 
 # The first argument `default` is host alias
 # `user` is optional, default value is `root`
+# `envs` is the server support deploy environments
 # `exclude_components` is optional, it's been used in `fab setup_server`
 loads(
     'default', {
         'host': 'your-server-ip',
         'port': 22,
         'user': 'root',
-        'password': 'server-password',
+        'connect_kwargs': {
+            'password': 'server-password',
+        },
         'envs': ['test', 'prod'],
         'exclude_components': ['redis'],
     }
 )
+
+# Using SSH key
+loads(
+    'web1', {
+        'host': 'your-server-ip',
+        'connect_kwargs': {
+            'key_filename': os.path.join(os.path.abspath('.'), '.deploy/private.pem'),
+        },
+    }
+)
+
 ```
 
 You can change host alias as you like: `web1` etc.
@@ -108,36 +123,7 @@ $ python3 -m pip install yapf
 # find yapf execute file 
  
 $ which yapf
-# (/usr/local/python3.6/bin/yapf) possible location
+# (/usr/local/python3.7/bin/yapf) possible location
 
-$ ln -s /usr/local/python3.6/bin/yapf /usr/local/bin/yapf
-```
-
-# _CONTRIBUTE_
-
-### Developer Environment
-
-```bash
-pip install -r requirements_dev.txt
-``` 
-
-### Run tests
-
-```bash
-python tests/runtests.py
-```
-
-
-### Tag a new release
-
-tag a version:
-
-```bash
-git tag -a v0.1.0
-```
-
-push tags to remote:
-
-```bash
-git push --tags
+$ ln -s /usr/local/python3.7/bin/yapf /usr/local/bin/yapf
 ```
