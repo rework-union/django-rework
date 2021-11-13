@@ -55,11 +55,13 @@ class SetupServer:
         self.c.run('curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py -o get-pip.py')
         self.c.run('python get-pip.py')
         self.c.run('python -m pip install supervisor==4.1.0')
+        self.c.run('supervisord -c /etc/supervisor/supervisord.conf')  # launch supervisord
 
     def setup_mysql(self):
         download_url = 'https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm'
         self.c.run(f'sudo rpm -Uvh {download_url}')
         self.c.run('sudo yum --enablerepo=mysql80-community install mysql-community-server')
+        self.c.run('systemctl start mysqld.service')
 
     def setup_redis(self):
         version = '4.0.14'
