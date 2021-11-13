@@ -10,10 +10,15 @@
 - `devops` docs
 
 ## [0.4.0] 2021-11-07
+### Added
+- Converted `uWSGI` to `Gunicorn`.
+
 ### Changed
 - Refactor the deploy command templates.
 - Liberalized mysqlclient version.
 - Changed yapf COLUMN_LIMIT from 100 to 99.
+- Updated to `Python 3.7.9`.
+- Updated to `Redis 4.0.14`.
 
 ## [0.3.0] 2021-07-05
 ### Added
