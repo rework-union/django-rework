@@ -14,7 +14,7 @@ COMMANDS = {
 
 def execute_from_command_line(argv=None):
     argv = argv or sys.argv[:]
-    say(f'Hello, Rework CLI, you argv is {argv}', icon='🏂', wrap='C')
+    say(f'Hello, Rework CLI, you argv is {argv}', icon='🏂', wrap='B')
 
     command = argv[1]
 
@@ -22,7 +22,7 @@ def execute_from_command_line(argv=None):
     # append startproject path '.' to argv when command is init
     if command == 'init':
         argv.append('.')
-        say(f'Oh hacked, you argv is {argv}', icon='🏂', wrap='C')
+        say(f'Oh hacked, you argv is {argv}', icon='🏂', wrap='A')
 
     if command in COMMANDS:
         COMMANDS.get(command)(argv[2:])
