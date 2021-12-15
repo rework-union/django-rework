@@ -36,7 +36,7 @@ class SettingsHandle:
             'project': self.project,
         }
         settings_tpl_path = 'project/settings/'
-        envs = ['prod', 'test', 'dev', 'dev.local']
+        envs = ['prod', 'test', 'dev', 'local']
         for env in envs:
             copy_template_to_file(f'{settings_tpl_path}{env}.py', self.base_dir, **kwargs)
 
