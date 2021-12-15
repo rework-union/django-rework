@@ -62,5 +62,10 @@ def copy_template_to_file(file_path, target_path, **kwargs):
     t = Template(content)
 
     target = os.path.join(target_path, file_path.replace('project', kwargs.get('project')))
+    # Make sure target dir is exists
+    target_dir = os.path.dirname(target)
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir, exist_ok=True)
+
     with open(target, 'w') as f:
         f.write(t.substitute(**kwargs))
