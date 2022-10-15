@@ -7,6 +7,7 @@ djangorestframework-simplejwt~=4.4.0
 fabric~=2.5
 Markdown~=3.1
 mysqlclient>=1.4.6
+patchwork==1.0.1
 Pillow>=6.2.2,<=8.1.0
 drf-nested-routers~=0.91
 drf-yasg~=1.17

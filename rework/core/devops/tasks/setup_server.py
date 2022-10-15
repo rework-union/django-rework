@@ -2,7 +2,9 @@
 Setup server configurations from a new server
 Support CentOS 7
 """
-from ..hosts import hosts, get_host_value, connect
+from patchwork import files
+
+from ..hosts import get_host_value, connect
 from ...utils import say, patch_connection_with_say
 
 
@@ -24,10 +26,6 @@ class SetupServer:
     def check_components(self, component):
         return component not in self.host_value.get('exclude_components', [])
 
-    def _remote_exists(self, path):
-        exists = self.c.run(f'[ -e "{path}" ] && echo true || echo false')
-        return exists == 'true'
-
     def setup_python3(self):
         """Install python3 and uWSGI"""
         version = '3.7.9'
@@ -42,7 +40,7 @@ class SetupServer:
 
         # Check whether `Python-{version}.tgz` exists
         tgz_file = f'Python-{version}.tgz'
-        if not self._remote_exists(tgz_file):
+        if not files.exists(tgz_file):
             self.c.run(f'wget https://www.python.org/ftp/python/{version}/{tgz_file}')
 
         self.c.run(f'tar xzf {tgz_file}')
