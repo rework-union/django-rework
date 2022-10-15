@@ -30,7 +30,7 @@ class SetupServer:
         major_version = version.rsplit('.', 1)[0]
         # Install Python
         self.c.run('yum -y update')
-        self.c.run('yum groupinstall "Development tools"')
+        self.c.run('yum -y groupinstall "Development tools"')
         try:
             self.c.run('yum -y install wget gcc make zlib-devel')
         except Exception as ex:
