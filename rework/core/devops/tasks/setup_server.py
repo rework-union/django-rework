@@ -38,7 +38,7 @@ class SetupServer:
         self.c.run(f'wget https://www.python.org/ftp/python/{version}/Python-{version}.tgz')
         self.c.run(f'tar xzf Python-{version}.tgz')
         self.c.run(
-            'cd Python-{version} && ./configure --with-ssl --prefix=/usr/local && make altinstall'
+            f'cd Python-{version} && ./configure --with-ssl --prefix=/usr/local && make altinstall'
         )
         self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
         self.c.run('python3 -V')
