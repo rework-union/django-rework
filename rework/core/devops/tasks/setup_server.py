@@ -25,7 +25,7 @@ class SetupServer:
         return component not in self.host_value.get('exclude_components', [])
 
     def _remote_exists(self, path):
-        exists = self.c.run('[ -e "Python-3.7.9.tgz.1" ] && echo true || echo false')
+        exists = self.c.run(f'[ -e "{path}" ] && echo true || echo false')
         return exists == 'true'
 
     def setup_python3(self):
