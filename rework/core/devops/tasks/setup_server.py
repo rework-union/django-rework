@@ -3,13 +3,16 @@ Setup server configurations from a new server
 Support CentOS 7
 """
 from ..hosts import hosts, get_host_value, connect
-from ...utils import say
+from ...utils import say, patch_connection_with_say
 
 
 class SetupServer:
     def __init__(self, c):
         self.c = connect(c)
         self.host_value = get_host_value(c)[1]
+
+        # Patch the `self.c.run`
+        self.c = patch_connection_with_say(self.c)
 
     def __call__(self, *args, **kwargs):
         self.setup_python3()

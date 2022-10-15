@@ -15,3 +15,16 @@ def say(content, icon=None, wrap=''):
 
     if wrap in ['A', 'C']:
         print()
+
+
+def patch_connection_with_say(connection):
+
+    origin_connection_run = connection.run
+
+    def patched_run(command, **kwargs):
+        say(command, icon='🥤')
+        return origin_connection_run(command, **kwargs)
+
+    connection.run = patched_run
+
+    return connection
