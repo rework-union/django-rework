@@ -40,7 +40,7 @@ class SetupServer:
 
         # Check whether `Python-{version}.tgz` exists
         tgz_file = f'Python-{version}.tgz'
-        if not files.exists(tgz_file):
+        if not files.exists(self.c, tgz_file):
             self.c.run(f'wget https://www.python.org/ftp/python/{version}/{tgz_file}')
 
         self.c.run(f'tar xzf {tgz_file}')
