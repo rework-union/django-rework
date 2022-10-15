@@ -24,6 +24,10 @@ class SetupServer:
     def check_components(self, component):
         return component not in self.host_value.get('exclude_components', [])
 
+    def _remote_exists(self, path):
+        exists = self.c.run('[ -e "Python-3.7.9.tgz.1" ] && echo true || echo false')
+        return exists == 'true'
+
     def setup_python3(self):
         """Install python3 and uWSGI"""
         version = '3.7.9'
@@ -35,15 +39,20 @@ class SetupServer:
             self.c.run('yum -y install wget gcc make zlib-devel')
         except Exception as ex:
             print('ex', ex)
-        self.c.run(f'wget https://www.python.org/ftp/python/{version}/Python-{version}.tgz')
-        self.c.run(f'tar xzf Python-{version}.tgz')
+
+        # Check whether `Python-{version}.tgz` exists
+        tgz_file = f'Python-{version}.tgz'
+        if not self._remote_exists(tgz_file):
+            self.c.run(f'wget https://www.python.org/ftp/python/{version}/{tgz_file}')
+
+        self.c.run(f'tar xzf {tgz_file}')
         self.c.run(
             f'cd Python-{version} && ./configure --with-ssl --prefix=/usr/local && make altinstall'
         )
         self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
         self.c.run('python3 -V')
         say('Clean up Python setup files')
-        self.c.run('rm -rf Python-{version}')
+        self.c.run(f'rm -rf Python-{version}')
 
         # Install Gunicorn
         pypi_mirror_suffix = ' -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com'
