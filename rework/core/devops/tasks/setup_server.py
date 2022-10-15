@@ -49,6 +49,14 @@ class SetupServer:
         self.c.run(
             f'cd Python-{version} && ./configure --with-ssl --prefix=/usr/local && make altinstall'
         )
+
+        # Removed system build-in Python 3.6.8
+        # CentOS 7.9, CentOS 8.x build-in Python 3.6.8
+        try:
+            self.c.run('rm -rf /usr/bin/python3')
+        except Exception as ex:
+            print('ex', ex)
+
         self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
         self.c.run('python3 -V')
         say('Clean up Python setup files')
