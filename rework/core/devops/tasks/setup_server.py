@@ -34,7 +34,7 @@ class SetupServer:
         self.c.run('yum -y update')
         self.c.run('yum -y groupinstall "Development tools"')
         try:
-            self.c.run('yum -y install wget gcc make zlib-devel')
+            self.c.run('yum -y install wget gcc make zlib-devel mysql-devel')
         except Exception as ex:
             print('ex', ex)
 
@@ -78,7 +78,7 @@ class SetupServer:
     def setup_mysql(self):
         download_url = 'https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm'
         self.c.run(f'sudo rpm -Uvh {download_url}')
-        self.c.run('sudo yum --enablerepo=mysql80-community install mysql-community-server')
+        self.c.run('sudo yum --enablerepo=mysql80-community install mysql-community-server -y')
         self.c.run('systemctl start mysqld.service')
 
     def setup_redis(self):
