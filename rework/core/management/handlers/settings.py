@@ -115,7 +115,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         "default": {
-            "format": '[%(asctime)s: %(levelname)s/%(name)s %(pathname)s:%(lineno)d] %(message)s',
+            "format": '[%(asctime)s: %(levelname)s/%(name)s %(filename)s:%(lineno)d] %(message)s',
         },
     },
     'handlers': {
