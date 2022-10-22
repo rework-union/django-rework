@@ -10,7 +10,6 @@ class SettingsHandle:
     """
     Handle django settings files
     """
-
     def __init__(self, project, path):
         self.base_dir = os.getcwd()
         self.project = project
@@ -106,6 +105,34 @@ REST_FRAMEWORK = {
 """
             self._save(f, content)
 
+    def _add_logging_setting(self):
+        with open(self.base_settings_file, 'r+') as f:
+            content = f.read()
+            content += """
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        "default": {
+            "format": '[%(asctime)s: %(levelname)s/%(name)s %(pathname)s:%(lineno)d] %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+    },
+}
+
+"""
+            self._save(f, content)
+
     def initialize(self):
         self._create_settings_package()
         # Added multi env setting files
@@ -114,3 +141,4 @@ REST_FRAMEWORK = {
         self._add_tags()
         self._add_installed_apps()
         self._add_rest_framework_setting()
+        self._add_logging_setting()
