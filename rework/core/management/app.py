@@ -11,18 +11,41 @@ from .. import utils
 from ..utils import say
 
 
+def _initialize_basics_model():
+    # Initialize `basics/models.py` file
+    base_dir = os.getcwd()
+    model_file = os.path.join(base_dir, 'basics', 'models.py')
+
+    with open(model_file, 'r+') as file:
+        content = file.read()
+        content = content.replace('# Create your models here.', '')
+        content = content.replace('\n', '')
+        content += '\n'
+        content += '\n'.join([
+            'from rework.contrib.users.models import EnhancedAbstractUser',
+            '',
+            '',
+            'class User(EnhancedAbstractUser):',
+            '    pass',
+            '',
+        ])
+
+        file.seek(0)
+        file.truncate()
+        file.write(content)
+
 def setup_auth_user_model(content):
     # Setup `AUTH_USER_MODEL` to `basic.User` if adding app is `users`,
     # and generate `basic` App
-    result = subprocess.run(["django-admin", "startapp", "basic"])
+    result = subprocess.run(["django-admin", "startapp", "basics"])
     if result.returncode != 0:
-        say(f'Generate `basic` App failed!', icon='🌶 ', wrap='C')
+        say(f'Generate `basics` App failed!', icon='🌶 ', wrap='C')
         return content
 
     pattern = '# {!AUTH_USER_MODEL}'
-    block = """AUTH_USER_MODEL = 'basic.User'"""
+    block = """AUTH_USER_MODEL = 'basics.User'"""
     content = content.replace(pattern, block)
-
+    _initialize_basics_model()
     return content
 
 
@@ -32,7 +55,7 @@ def add(params):
     say(f'Start adding app: {app}')
 
     # Add app name to base settings
-    settings_file = os.path.join(utils.get_settings_path(), 'base', '__init__.py')
+    settings_file = os.path.join(utils.get_settings_path(), 'settings.py')
     with open(settings_file, 'r+') as file:
         # check where app in INSTALLED_APPS
         content = file.read()
@@ -61,7 +84,7 @@ def add(params):
         if app == 'users':
             installed_apps_block = re.sub(
                 r'\n]',
-                f"\n    'basic',\n]",
+                f"\n    'basics',\n]",
                 installed_apps_block,
             )
 
@@ -72,7 +95,6 @@ def add(params):
         if app == 'users':
             content = setup_auth_user_model(content)
 
-        say(f'content {content}')
         file.seek(0)
         file.truncate()
         file.write(content)
@@ -81,4 +103,4 @@ def add(params):
     urls_handler = UrlsHandle()
     urls_handler.add_include_urls(app)
 
-    say('Added completely!')
+    say(f'Added django `{app}` successfully!')

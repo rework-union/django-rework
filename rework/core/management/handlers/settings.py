@@ -18,6 +18,54 @@ class SettingsHandle:
         f.truncate()
         f.write(content)
 
+    def _extra_imports(self):
+        """Extra imports in the top"""
+        with open(self.base_settings_file, 'r+') as f:
+            content = f.read()
+            pos_chars = 'from pathlib import Path'
+            content = content.replace(
+                pos_chars, '\n'.join([
+                    'import environ',
+                    'import os',
+                    '',
+                    pos_chars,
+                    '',
+                    '# set casting, default value',
+                    'env = environ.Env(DEBUG=(bool, False))',
+                ])
+            )
+            self._save(f, content)
+
+    def _environ(self):
+        """Setup django-environ to support .env"""
+        with open(self.base_settings_file, 'r+') as f:
+            content = f.read()
+
+            # Read env
+            pos_chars = 'BASE_DIR = Path(__file__).resolve().parent.parent'
+            content = content.replace(
+                pos_chars, '\n'.join([
+                    pos_chars,
+                    '',
+                    '# Take environment variables from .env file',
+                    "environ.Env.read_env(os.path.join(BASE_DIR, '.env'))",
+                ])
+            )
+
+            # env: DEBUG
+            pos_chars = 'DEBUG = True'
+            content = content.replace(pos_chars, "DEBUG = env('DEBUG')")
+
+            # env: DATABASES
+            pos_pattern = r'DATABASES([\S\s]+?}){2}'
+            re.sub(pos_pattern, '\n'.join([
+                'DATABASES = {',
+                "    'default': env.db(),  # read os.environ['DATABASE_URL'] ",
+                '}'
+            ]), content)
+
+            self._save(f, content)
+
     def _add_tags(self):
         with open(self.base_settings_file, 'r+') as f:
             content = f.read()
@@ -74,7 +122,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
-
 """
             self._save(f, content)
 
@@ -102,13 +149,14 @@ LOGGING = {
         'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
     },
 }
-
 """
             self._save(f, content)
 
     def initialize(self):
+        self._extra_imports()
+        self._environ()
         # Added template tag to settings.py
-        self._add_tags()
+        self._add_tags()  # Tags reserved for other commands
         self._add_installed_apps()
         self._add_rest_framework_setting()
         self._add_logging_setting()
