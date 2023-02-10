@@ -1,28 +1,25 @@
 # _CONTRIBUTE_
 
-### Developer Environment
+## Developer Environment
 
 ```bash
 pip install -r requirements_dev.txt
 ``` 
 
-### Run tests
+## Run tests
 
 ```bash
 python tests/runtests.py
 ```
 
-
-### Tag a new release
-
-tag a version:
-
+## Manual test project creating
 ```bash
-git tag -a v0.1.0
-```
+# Nav to the examples folder
+cd examples 
 
-push tags to remote:
+# Delete previous created files if exists
+rm -rf * && rm -rf .* 
 
-```bash
-git push --tags
+# Creating new project 
+rework init pony
 ```

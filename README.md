@@ -10,13 +10,20 @@ Rapid develop framework base on Django
 
 # _Installation_
 
+## Requirements
+
+- Python >= 3.7
+- Django >= 3.2
+- Django REST framework >=3.13,<4.0
+
+## Install django-rework
 ```bash
 python3 -m pip install django-rework
 ```
 
 # _Generic CLI Commands_
 
-### Start a new project
+## Start a new project
 
 ```bash
 # It will create project in current dir
@@ -24,32 +31,32 @@ python3 -m pip install django-rework
 rework init pony
 ```
 
-### Add App
+## Add App
 
 ```bash
 rework add users
 ```
 
-### Add deployment configurations
+## Add deployment configurations
 
 ```bash
 rework deploy --init
 ```
 
-### Deploy to test or production
+## Deploy to test or production
 
 ```bash
 rework deploy
 ```
 
-# App docs
+# _App docs_
 
 | App      | Description | docs in English | 简体中文文档  |
 | -------- | ----------- | --------------- | ----------- |
 | users    | Users system       | [users.md](docs/users.md) | [users_cn.md](docs/users_cn.md) |
 
 
-# DevOps Fabric scripts 
+# _DevOps Fabric scripts_ 
 
 ## Setup hosts
 

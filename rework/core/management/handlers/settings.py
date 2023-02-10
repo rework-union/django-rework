@@ -1,9 +1,5 @@
 import os
 import re
-import shutil
-
-from rework import core
-from rework.core.utils import copy_template_to_file
 
 
 class SettingsHandle:
@@ -14,36 +10,61 @@ class SettingsHandle:
         self.base_dir = os.getcwd()
         self.project = project
         self.path = path  # settings root path, generally is project name
-        self.base_settings_file = None
-
-    def _create_settings_package(self):
-        #  1. Make a package named `settings`
-        package = os.path.join(self.path, 'settings')
-        base_settings_path = os.path.join(package, 'base')
-        os.makedirs(base_settings_path)
-
-        #  2. Move origin settings.py to settings/base/__init__.py
-        origin_settings_file = os.path.join(self.path, 'settings.py')
-        target_settings_file = os.path.join(base_settings_path, '__init__.py')
-        shutil.move(origin_settings_file, target_settings_file)
-
-        self.base_settings_file = target_settings_file
-
-    def create_multi_envs(self):
-        kwargs = {
-            'django_rework_version': core.__version__,
-            'project': self.project,
-        }
-        settings_tpl_path = 'project/settings/'
-        envs = ['prod', 'test', 'dev', 'local']
-        for env in envs:
-            copy_template_to_file(f'{settings_tpl_path}{env}.py', self.base_dir, **kwargs)
+        self.base_settings_file = os.path.join(self.path, 'settings.py')
 
     @staticmethod
     def _save(f, content):
         f.seek(0)
         f.truncate()
         f.write(content)
+
+    def _extra_imports(self):
+        """Extra imports in the top"""
+        with open(self.base_settings_file, 'r+') as f:
+            content = f.read()
+            pos_chars = 'from pathlib import Path'
+            content = content.replace(
+                pos_chars, '\n'.join([
+                    'import environ',
+                    'import os',
+                    '',
+                    pos_chars,
+                    '',
+                    '# set casting, default value',
+                    'env = environ.Env(DEBUG=(bool, False))',
+                ])
+            )
+            self._save(f, content)
+
+    def _environ(self):
+        """Setup django-environ to support .env"""
+        with open(self.base_settings_file, 'r+') as f:
+            content = f.read()
+
+            # Read env
+            pos_chars = 'BASE_DIR = Path(__file__).resolve().parent.parent'
+            content = content.replace(
+                pos_chars, '\n'.join([
+                    pos_chars,
+                    '',
+                    '# Take environment variables from .env file',
+                    "environ.Env.read_env(os.path.join(BASE_DIR, '.env'))",
+                ])
+            )
+
+            # env: DEBUG
+            pos_chars = 'DEBUG = True'
+            content = content.replace(pos_chars, "DEBUG = env('DEBUG')")
+
+            # env: DATABASES
+            pos_pattern = r'DATABASES([\S\s]+?}){2}'
+            re.sub(pos_pattern, '\n'.join([
+                'DATABASES = {',
+                "    'default': env.db(),  # read os.environ['DATABASE_URL'] ",
+                '}'
+            ]), content)
+
+            self._save(f, content)
 
     def _add_tags(self):
         with open(self.base_settings_file, 'r+') as f:
@@ -101,7 +122,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
-
 """
             self._save(f, content)
 
@@ -129,16 +149,14 @@ LOGGING = {
         'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
     },
 }
-
 """
             self._save(f, content)
 
     def initialize(self):
-        self._create_settings_package()
-        # Added multi env setting files
-        self.create_multi_envs()
-        # Added template tag to base/__init__.py
-        self._add_tags()
+        self._extra_imports()
+        self._environ()
+        # Added template tag to settings.py
+        self._add_tags()  # Tags reserved for other commands
         self._add_installed_apps()
         self._add_rest_framework_setting()
         self._add_logging_setting()

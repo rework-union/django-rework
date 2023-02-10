@@ -26,13 +26,12 @@ def init(params):
         say(f'Initialized failed!', icon='🌶 ', wrap='C')
         return False
 
-    # Changed the settings files to satisfy multi environments
+    # Changed the settings files
     say(f'Changed the settings files to satisfy multi environments')
     settings_folder = os.path.join(project_dir, project)
     settings_handler = SettingsHandle(project=project, path=settings_folder)
 
     # template variables
-
     kwargs = {
         'django_rework_version': core.__version__,
         'project': project,
@@ -48,5 +47,7 @@ def init(params):
     copy_template_to_file('.gitignore', base_dir, **kwargs)
     copy_template_to_file('.style.yapf', base_dir, **kwargs)
     copy_template_to_file('requirements.txt', base_dir, **kwargs)
+    copy_template_to_file('.env.dist', base_dir, **kwargs)
+    copy_template_to_file('.env', base_dir, **kwargs)
 
     say(f'Initialized completely!', icon='🎨', wrap='C')

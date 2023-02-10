@@ -26,11 +26,11 @@ def get_settings_path(project=None):
     base_dir = os.getcwd()
     project = project or get_project_name()
 
-    path = os.path.join(base_dir, project, project, 'settings')
+    path = os.path.join(base_dir, project, project)
     if os.path.exists(path):
         return path
 
-    path = os.path.join(base_dir, project, 'settings')
+    path = os.path.join(base_dir, project)
     if os.path.exists(path):
         return path
 

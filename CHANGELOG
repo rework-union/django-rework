@@ -4,10 +4,15 @@
 # includes Added / Changed / Fixed
 
 ## [0.5.0] UNRELEASED
+### Added
+- Added `django-environ` to manage environments
+- Restored the settings file from settings package
+- Agile API development support Pydantic and FastAPI style with `django-ninja`
 ### Changed
 - Optimized CLI UI
 - Started MySQL/Redis/Supervisor as installed
 - `devops` docs
+- Upgraded all dependency packages
 
 ## [0.4.0] 2021-11-07
 ### Added
