@@ -26,13 +26,12 @@ def init(params):
         say(f'Initialized failed!', icon='🌶 ', wrap='C')
         return False
 
-    # Changed the settings files to satisfy multi environments
+    # Changed the settings files
     say(f'Changed the settings files to satisfy multi environments')
     settings_folder = os.path.join(project_dir, project)
     settings_handler = SettingsHandle(project=project, path=settings_folder)
 
     # template variables
-
     kwargs = {
         'django_rework_version': core.__version__,
         'project': project,

@@ -4,6 +4,9 @@
 # includes Added / Changed / Fixed
 
 ## [0.5.0] UNRELEASED
+### Added
+- Added `django-environ` to manage environments
+- Restored the settings file from settings package
 ### Changed
 - Optimized CLI UI
 - Started MySQL/Redis/Supervisor as installed
