@@ -12,6 +12,7 @@
 - Optimized CLI UI
 - Started MySQL/Redis/Supervisor as installed
 - `devops` docs
+- Upgraded all dependency packages
 
 ## [0.4.0] 2021-11-07
 ### Added
