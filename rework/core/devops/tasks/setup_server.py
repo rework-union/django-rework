@@ -28,13 +28,13 @@ class SetupServer:
 
     def setup_python3(self):
         """Install python3 and Gunicorn"""
-        version = '3.10.9'
+        version = '3.8.16'
         major_version = version.rsplit('.', 1)[0]
         # Install Python
         self.c.run('yum -y update')
         self.c.run('yum -y groupinstall "Development tools"')
         try:
-            self.c.run('yum -y install wget gcc make zlib-devel mysql-devel')
+            self.c.run('yum -y install wget gcc make zlib-devel mysql-devel openssl-devel')
         except Exception as ex:
             print('ex', ex)
 
@@ -45,7 +45,7 @@ class SetupServer:
 
         self.c.run(f'tar xzf {tgz_file}')
         self.c.run(
-            f'cd Python-{version} && ./configure --with-ssl --prefix=/usr/local && make altinstall'
+            f'cd Python-{version} && ./configure --prefix=/usr/local && make altinstall'
         )
 
         # Removed system build-in Python 3.6.8
@@ -56,6 +56,7 @@ class SetupServer:
             print('ex', ex)
 
         self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
+        self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/local/bin/python3')
         self.c.run('python3 -V')
         say('Clean up Python setup files')
         self.c.run(f'rm -rf Python-{version}')
