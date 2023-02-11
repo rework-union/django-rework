@@ -27,8 +27,8 @@ class SetupServer:
         return component not in self.host_value.get('exclude_components', [])
 
     def setup_python3(self):
-        """Install python3 and uWSGI"""
-        version = '3.7.9'
+        """Install python3 and Gunicorn"""
+        version = '3.10.9'
         major_version = version.rsplit('.', 1)[0]
         # Install Python
         self.c.run('yum -y update')
