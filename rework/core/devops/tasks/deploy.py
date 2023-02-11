@@ -105,14 +105,13 @@ class Deploy:
         # Models migrate
         say('Migrate database')
         self.c.run(
-            f'cd {root} && python3 manage.py migrate --settings={self.project}.settings.{self.env}'
+            f'cd {root} && python3 manage.py migrate'
         )
 
     def collect_static(self, root):
         # Collect static
         say('Collect static')
-        settings_suffix = f'--settings={self.project}.settings.{self.env}'
-        self.c.run(f'cd {root} && python3 manage.py collectstatic {settings_suffix} --no-input')
+        self.c.run(f'cd {root} && python3 manage.py collectstatic --no-input')
 
     def restart(self, service):
         # Restart infrastructure

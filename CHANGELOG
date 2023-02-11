@@ -3,7 +3,14 @@
 # This project adheres to [Semantic Versioning](http://semver.org/).
 # includes Added / Changed / Fixed
 
-## [0.5.0] UNRELEASED
+## [0.5.2] UNRELEASED
+
+## [0.5.1] 2023-02-11
+### Fixed
+- Fixed the old configuration path is wrong
+- Fixed ALLOWED_HOSTS settings read env
+
+## [0.5.0] 2023-02-10
 ### Added
 - Added `django-environ` to manage environments
 - Restored the settings file from settings package
