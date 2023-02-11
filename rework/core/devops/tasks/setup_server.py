@@ -66,6 +66,7 @@ class SetupServer:
             print('ex', ex)
 
         self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
+        self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/local/bin/python3')
         self.c.run('python3 -V')
         say('Clean up Python setup files')
         self.c.run(f'rm -rf Python-{version}')
