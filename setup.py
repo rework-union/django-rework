@@ -21,7 +21,9 @@ setup(
     author_email='josh.yu_8@live.com',
     license='MIT',
     entry_points={
-        'console_scripts': ['rework = rework.core.management:execute_from_command_line', ]
+        'console_scripts': [
+            'rework = rework.core.management:execute_from_command_line',
+        ]
     },
     install_requires=INSTALL_REQUIREMENTS,
     packages=find_packages(),
@@ -31,10 +33,9 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
-        'Framework :: Django :: 2.2',
-        'Framework :: Django :: 3.0',
-        'Framework :: Django :: 3.1',
         'Framework :: Django :: 3.2',
+        'Framework :: Django :: 4.0',
+        'Framework :: Django :: 4.1',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
@@ -43,6 +44,8 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Internet :: WWW/HTTP',
     ],
