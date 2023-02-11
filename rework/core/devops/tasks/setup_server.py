@@ -44,8 +44,14 @@ class SetupServer:
             self.c.run(f'wget https://www.python.org/ftp/python/{version}/{tgz_file}')
 
         self.c.run(f'tar xzf {tgz_file}')
+
+        # https://stackoverflow.com/questions/17915098/openssl-ssl-h-no-such-file-or-directory-during-installation-of-git
+        # You can find it on your system and can run configure with --with-openssl
+        # ./configure --with-openssl=/usr/
         self.c.run(
-            f'cd Python-{version} && ./configure --prefix=/usr/local && make altinstall'
+            f'cd Python-{version}'
+            f' && ./configure --prefix=/usr/local --with-openssl=/usr'
+            f' && make altinstall'
         )
 
         # Removed system build-in Python 3.6.8
