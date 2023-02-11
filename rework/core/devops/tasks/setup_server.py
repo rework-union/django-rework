@@ -27,7 +27,11 @@ class SetupServer:
         return component not in self.host_value.get('exclude_components', [])
 
     def setup_python3(self):
-        """Install python3 and Gunicorn"""
+        """Install python3 and Gunicorn
+
+        Basic information about `CentOS 7/8` and `Python`
+        https://linuxstans.com/how-to-install-python-centos/
+        """
         version = '3.8.16'
         major_version = version.rsplit('.', 1)[0]
         # Install Python
@@ -39,18 +43,18 @@ class SetupServer:
             print('ex', ex)
 
         # Check whether `Python-{version}.tgz` exists
-        tgz_file = f'Python-{version}.tgz'
-        if not files.exists(self.c, tgz_file):
-            self.c.run(f'wget https://www.python.org/ftp/python/{version}/{tgz_file}')
+        file = f'Python-{version}.tgz'
+        if not files.exists(self.c, file):
+            self.c.run(f'wget https://www.python.org/ftp/python/{version}/{file}')
 
-        self.c.run(f'tar xzf {tgz_file}')
+        self.c.run(f'tar xzf {file}')
 
         # https://stackoverflow.com/questions/17915098/openssl-ssl-h-no-such-file-or-directory-during-installation-of-git
         # You can find it on your system and can run configure with --with-openssl
         # ./configure --with-openssl=/usr/
         self.c.run(
             f'cd Python-{version}'
-            f' && ./configure --prefix=/usr/local --with-openssl=/usr'
+            f' && ./configure --prefix=/usr/local --with-openssl=/usr/local'
             f' && make altinstall'
         )
 
@@ -62,13 +66,12 @@ class SetupServer:
             print('ex', ex)
 
         self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
-        self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/local/bin/python3')
         self.c.run('python3 -V')
         say('Clean up Python setup files')
         self.c.run(f'rm -rf Python-{version}')
 
         # Install Gunicorn
-        pypi_mirror_suffix = ' -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com'
+        pypi_mirror_suffix = ' -i https://pypi.doubanio.com/simple/'
         self.c.run(f'python3 -m pip install gunicorn {pypi_mirror_suffix}')
 
     def setup_nginx(self):
