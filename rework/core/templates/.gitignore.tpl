@@ -13,6 +13,7 @@ __pycache__/
 !.editorconfig
 !.style.yapf
 !.deploy
+!.env.dist
 
 # celery
 celerybeat.pid
