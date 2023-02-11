@@ -31,7 +31,10 @@ class SettingsHandle:
                     pos_chars,
                     '',
                     '# set casting, default value',
-                    'env = environ.Env(DEBUG=(bool, False))',
+                    'env = environ.Env(',
+                    '    DEBUG=(bool, False),',
+                    '    ALLOWED_HOSTS=(list, []),',
+                    ')',
                 ])
             )
             self._save(f, content)
@@ -56,9 +59,13 @@ class SettingsHandle:
             pos_chars = 'DEBUG = True'
             content = content.replace(pos_chars, "DEBUG = env('DEBUG')")
 
+            # env: ALLOWED_HOSTS
+            pos_chars = 'ALLOWED_HOSTS = []'
+            content = content.replace(pos_chars, "ALLOWED_HOSTS = env('ALLOWED_HOSTS')")
+
             # env: DATABASES
             pos_pattern = r'DATABASES([\S\s]+?}){2}'
-            re.sub(pos_pattern, '\n'.join([
+            content = re.sub(pos_pattern, '\n'.join([
                 'DATABASES = {',
                 "    'default': env.db(),  # read os.environ['DATABASE_URL'] ",
                 '}'
