@@ -32,7 +32,7 @@ class SetupServer:
         Basic information about `CentOS 7/8` and `Python`
         https://linuxstans.com/how-to-install-python-centos/
         """
-        version = '3.8.16'
+        version = '3.10.9'
         major_version = version.rsplit('.', 1)[0]
         # Install Python
         self.c.run('yum -y update')
