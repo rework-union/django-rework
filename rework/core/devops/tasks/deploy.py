@@ -84,7 +84,10 @@ class Deploy:
 
         destination = f'/etc/supervisor/conf.d/'
         self.c.run(f'cp {origin} {destination}')
-        say('Copied supervisor configuration successfully')
+        say('Supervisor configuration copy successfully')
+
+        self.c.run(f'supervisorctl update')
+        say('Supervisor configuration update successfully')
 
     def pull(self, branch, root):
         # Pull latest code
