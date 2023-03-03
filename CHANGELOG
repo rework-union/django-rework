@@ -3,7 +3,14 @@
 # This project adheres to [Semantic Versioning](http://semver.org/).
 # includes Added / Changed / Fixed
 
-## [0.5.2] UNRELEASED
+## [0.5.3] UNRELEASED
+
+## [0.5.2] 2023-03-03
+### Added
+- 400 bad request response format
+### Changed
+- Upgraded all dependency packages
+- Drop Python 3.7 support
 
 ## [0.5.1] 2023-02-11
 ### Fixed

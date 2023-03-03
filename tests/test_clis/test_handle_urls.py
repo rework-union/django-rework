@@ -24,7 +24,7 @@ from django.urls import re_path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^api/tests/', include('rework.contrib.tests.urls', namespace='tests')),
+    re_path(r'^api/tests/', include('rework.contrib.tests.urls')),
 ]
 
 """

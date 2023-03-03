@@ -6,24 +6,24 @@
 [![Django](https://img.shields.io/pypi/djversions/django-rework)](https://www.djangoproject.com)
 [![License](https://img.shields.io/pypi/l/django-rework)](https://opensource.org/licenses/MIT)
 
-Rapid develop framework base on Django
+Rapid develop framework base on Django, integrated with Django-Ninja.
 
-# _Installation_
+# _Installation_ & Cli commands
 
 ## Requirements
 
-- Python >= 3.7
+- Python >= 3.8
 - Django >= 3.2
 - Django REST framework >=3.13,<4.0
 
 ## Install django-rework
 ```bash
-python3 -m pip install django-rework
+pip install django-rework
 ```
 
-# _Generic CLI Commands_
+## Generic CLI Commands
 
-## Start a new project
+### Start a new project
 
 ```bash
 # It will create project in current dir
@@ -31,23 +31,47 @@ python3 -m pip install django-rework
 rework init pony
 ```
 
-## Add App
+### Add build-in contrib Apps
 
 ```bash
 rework add users
 ```
 
-## Add deployment configurations
+### Add deployment configurations
 
 ```bash
 rework deploy --init
 ```
 
-## Deploy to test or production
+### Deploy to test or production
 
 ```bash
-rework deploy
+rework deploy  # or 'fab -H web1 deploy'
 ```
+
+# _Core docs_
+
+## Custom exceptions
+
+The exception handler must also be configured in your settings, using the EXCEPTION_HANDLER setting key. For example:
+
+```python
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'rework.core.views.exception_handler'
+}
+```
+
+Use build-in custom exceptions:
+```python
+from rework.core.exceptions import ValidateError
+ValidateError(
+    detail='You do not have permission to perform this action.', 
+    code='permission_denied',
+)
+```
+
+🥭 [Build-in custom exceptions](rework/core/exceptions.py)
+
 
 # _App docs_
 
