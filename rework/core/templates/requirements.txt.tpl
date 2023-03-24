@@ -1,1 +1,1 @@
-django-rework==0.1.3
+django-rework==${django_rework_version}

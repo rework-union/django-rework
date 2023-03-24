@@ -4,6 +4,8 @@
 # includes Added / Changed / Fixed
 
 ## [0.5.3] UNRELEASED
+### Fixed
+- Fixed django rework version in generated requirements.txt
 
 ## [0.5.2] 2023-03-03
 ### Added
