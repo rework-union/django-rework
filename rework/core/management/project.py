@@ -8,7 +8,6 @@ import subprocess
 
 from .handlers.settings import SettingsHandle
 from ..utils import say, copy_template_to_file
-from ... import core
 
 
 def init(params):
@@ -31,9 +30,10 @@ def init(params):
     settings_folder = os.path.join(project_dir, project)
     settings_handler = SettingsHandle(project=project, path=settings_folder)
 
+    from rework import __version__
     # template variables
     kwargs = {
-        'django_rework_version': core.__version__,
+        'django_rework_version': __version__,
         'project': project,
     }
 

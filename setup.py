@@ -1,5 +1,5 @@
 from setuptools import find_packages, setup
-from rework import core
+from rework import __version__
 
 
 def read(f):
@@ -12,7 +12,7 @@ INSTALL_REQUIREMENTS = read('requirements.txt').splitlines()
 
 setup(
     name='django-rework',
-    version=core.__version__,
+    version=__version__,
     description='Rapid develop framework base on Django',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',

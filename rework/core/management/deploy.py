@@ -2,16 +2,16 @@ import os
 
 from ..utils import say, copy_template_to_file, get_project_name
 from ..utils.command import BaseCommand
-from ... import core
 
 
 class DeployCommand(BaseCommand):
     def handle(self, params):
+        from rework import __version__
         if params == ['--init']:
             # template variables
             project = get_project_name()
             kwargs = {
-                'django_rework_version': core.__version__,
+                'django_rework_version': __version__,
                 'project': project,
             }
             deploy_path = os.path.join(self.base_dir, 'deploy')
