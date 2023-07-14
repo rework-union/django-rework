@@ -18,7 +18,7 @@ python tests/runtests.py
 cd examples 
 
 # Delete previous created files if exists
-rm -rf * && rm -rf .* 
+rm -rf * && rm -rf .*
 
 # Creating new project 
 rework init pony
