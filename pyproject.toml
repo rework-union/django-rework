@@ -5,6 +5,10 @@ description = ""
 authors = ["Josh.Yu <josh.yu_8@live.com>"]
 readme = "README.md"
 
+[tool.poetry.dependencies]
+python = "^3.8"
+drf-spectacular = "^0.27.0"
+
 [tool.black]
 line-length = 99
 target-version = ['py310', 'py311', 'py312']
