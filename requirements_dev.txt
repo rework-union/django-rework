@@ -1,3 +1,4 @@
 -r requirements.txt
 wheel~=0.36
 twine~=4.0
+pytest>=7.4,<8
