@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "next"
+name = "django-rework"
 version = "0.6.0"
 description = ""
 authors = ["Josh.Yu <josh.yu_8@live.com>"]
@@ -10,7 +10,6 @@ python = "^3.8"
 drf-spectacular = "^0.27.0"
 
 [tool.black]
-line-length = 99
 target-version = ['py310', 'py311', 'py312']
 include = '\.pyi?$'
 # 'extend-exclude' excludes files or directories in addition to the defaults

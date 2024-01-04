@@ -6,7 +6,7 @@
 [![Django](https://img.shields.io/pypi/djversions/django-rework)](https://www.djangoproject.com)
 [![License](https://img.shields.io/pypi/l/django-rework)](https://opensource.org/licenses/MIT)
 
-Rapid develop framework base on Django, integrated with Django-Ninja.
+Rapid develop framework base on Django, with non-verbose Django development experience.
 
 # _Installation_ & Cli commands
 
@@ -75,9 +75,9 @@ ValidateError(
 
 # _App docs_
 
-| App      | Description | docs in English | 简体中文文档  |
-| -------- | ----------- | --------------- | ----------- |
-| users    | Users system       | [users.md](docs/users.md) | [users_cn.md](docs/users_cn.md) |
+| App      | Description     | docs in English           | 简体中文文档                          |
+| -------- |-----------------|---------------------------|---------------------------------|
+| users    | Users system    | [users.md](docs/users.md) | [users_cn.md](docs/users_cn.md) |
 
 
 # _DevOps Fabric scripts_ 
@@ -140,21 +140,4 @@ fab test deploy
 If you want to update requirements, you should add arguments `-r` or `--requirements_update`
 ```bash
 fab test deploy -r
-```
-
-
-# _Code Format_
-
-Code format using Google 的 `yapf`，recommend to install `yapf` globally：
-```bash
-# install yapf using pip in python3
-$ python3 -m pip install yapf
-
-# find and create soft link to `/usr/local/bin/yapf`
-# find yapf execute file 
- 
-$ which yapf
-# (/usr/local/python3.7/bin/yapf) possible location
-
-$ ln -s /usr/local/python3.7/bin/yapf /usr/local/bin/yapf
 ```
