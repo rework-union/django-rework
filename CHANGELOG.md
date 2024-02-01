@@ -3,9 +3,8 @@
 # This project adheres to [Semantic Versioning](http://semver.org/).
 # includes Added / Changed / Fixed
 
-## [0.5.3] UNRELEASED
-### Fixed
-- Fixed django rework version in generated requirements.txt
+Release Notes for versions 0.5 or later
+https://github.com/rework-union/django-rework/releases
 
 ## [0.5.2] 2023-03-03
 ### Added

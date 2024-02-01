@@ -1,4 +1,3 @@
-import os
 import sys
 
 from . import project, app, deploy, migrate
