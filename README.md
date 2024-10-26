@@ -8,6 +8,8 @@
 
 Rapid develop framework base on Django, with non-verbose Django development experience.
 
+Inspired by [`RailgunS`](https://github.com/nyssance/railguns)
+
 # _Installation_ & Cli commands
 
 ## Requirements
