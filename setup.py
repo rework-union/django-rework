@@ -23,6 +23,7 @@ setup(
     entry_points={
         "console_scripts": [
             "rework = rework.core.management:execute_from_command_line",
+            "re = rework.core.management:execute_from_command_line",
         ]
     },
     install_requires=INSTALL_REQUIREMENTS,

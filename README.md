@@ -6,7 +6,7 @@
 [![Django](https://img.shields.io/pypi/djversions/django-rework)](https://www.djangoproject.com)
 [![License](https://img.shields.io/pypi/l/django-rework)](https://opensource.org/licenses/MIT)
 
-Rapid develop framework base on Django, with non-verbose Django development experience.
+Rapid develop framework base on Django and Django-Ninja, with non-verbose Django development experience.
 
 Inspired by [`RailgunS`](https://github.com/nyssance/railguns)
 
@@ -14,8 +14,9 @@ Inspired by [`RailgunS`](https://github.com/nyssance/railguns)
 
 ## Requirements
 
-- Python >= 3.8
+- Python >= 3.9
 - Django >= 3.2
+- Django-Ninja >= 1.3
 - Django REST framework >=3.13,<4.0
 
 ## Install django-rework
