@@ -1,3 +1,11 @@
+[project]
+name = "django-rework"
+version = "0.8.0"
+description = ""
+authors = ["Josh.Yu <josh.yu_8@live.com>"]
+readme = "README.md"
+dependencies = []
+
 [tool.poetry]
 name = "django-rework"
 version = "0.8.0"
@@ -28,6 +36,11 @@ wechatpy = "~= 1.8"
 wheel = "^0.36"
 twine = "^4.0"
 pytest = ">= 7.4.4, < 9"
+
+[dependency-groups]
+dev = [
+    "black>=25.9.0",
+]
 
 [tool.black]
 target-version = ['py310', 'py311', 'py312']
