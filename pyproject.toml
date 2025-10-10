@@ -1,17 +1,17 @@
 [tool.poetry]
 name = "django-rework"
-version = "0.6.1"
+version = "0.8.0"
 description = ""
 authors = ["Josh.Yu <josh.yu_8@live.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-Django = ">= 3.2, < 5.0"
-django-cors-headers = ">= 3.13.0, < 4.0"
-django-environ = ">= 0.9.0, < 1.0"
-django-filter = ">= 22.1, < 23"
-django-mysql = ">= 4.7"
+python = "^3.10"
+Django = ">= 3.2, < 6.0"
+django-cors-headers = ">= 4.0, < 5.0"
+django-environ = ">= 0.10.0, < 1.0"
+django-filter = ">= 23.1, < 26"
+django-mysql = ">= 4.9, < 5"
 django-ninja = ">= 1.3.0, < 2.0"
 djangorestframework = ">= 3.15.2, < 4.0"
 djangorestframework-simplejwt = "~= 5.3"
@@ -27,7 +27,7 @@ wechatpy = "~= 1.8"
 [tool.poetry.group.dev.dependencies]
 wheel = "^0.36"
 twine = "^4.0"
-pytest = "^7.4.4"
+pytest = ">= 7.4.4, < 9"
 
 [tool.black]
 target-version = ['py310', 'py311', 'py312']
