@@ -2,7 +2,7 @@
 Setup server configurations from a new server
 Support CentOS 7
 """
-from patchwork import files
+# from patchwork import files
 
 from ..hosts import get_host_value, connect
 from ...utils import say, patch_connection_with_say
@@ -18,13 +18,13 @@ class SetupServer:
 
     def __call__(self, *args, **kwargs):
         self.setup_python3()
-        self.check_components('nginx') and self.setup_nginx()
-        self.check_components('supervisor') and self.setup_supervisor()
-        self.check_components('mysql') and self.setup_mysql()
-        self.check_components('redis') and self.setup_redis()
+        self.check_components("nginx") and self.setup_nginx()
+        self.check_components("supervisor") and self.setup_supervisor()
+        self.check_components("mysql") and self.setup_mysql()
+        self.check_components("redis") and self.setup_redis()
 
     def check_components(self, component):
-        return component not in self.host_value.get('exclude_components', [])
+        return component not in self.host_value.get("exclude_components", [])
 
     def setup_python3(self):
         """Install python3 and Gunicorn
@@ -32,77 +32,77 @@ class SetupServer:
         Basic information about `CentOS 7/8` and `Python`
         https://linuxstans.com/how-to-install-python-centos/
         """
-        version = '3.10.9'
-        major_version = version.rsplit('.', 1)[0]
+        version = "3.10.9"
+        major_version = version.rsplit(".", 1)[0]
         # Install Python
-        self.c.run('yum -y update')
+        self.c.run("yum -y update")
         self.c.run('yum -y groupinstall "Development tools"')
         try:
-            self.c.run('yum -y install wget gcc make zlib-devel mysql-devel openssl-devel')
+            self.c.run("yum -y install wget gcc make zlib-devel mysql-devel openssl-devel")
         except Exception as ex:
-            print('ex', ex)
+            print("ex", ex)
 
         # Check whether `Python-{version}.tgz` exists
-        file = f'Python-{version}.tgz'
-        if not files.exists(self.c, file):
-            self.c.run(f'wget https://www.python.org/ftp/python/{version}/{file}')
+        file = f"Python-{version}.tgz"
+        # if not files.exists(self.c, file):
+        #     self.c.run(f"wget https://www.python.org/ftp/python/{version}/{file}")
 
-        self.c.run(f'tar xzf {file}')
+        self.c.run(f"tar xzf {file}")
 
         # https://stackoverflow.com/questions/17915098/openssl-ssl-h-no-such-file-or-directory-during-installation-of-git
         # You can find it on your system and can run configure with --with-openssl
         # ./configure --with-openssl=/usr/
         self.c.run(
-            f'cd Python-{version}'
-            f' && ./configure --prefix=/usr/local --with-openssl=/usr/local'
-            f' && make altinstall'
+            f"cd Python-{version}"
+            f" && ./configure --prefix=/usr/local --with-openssl=/usr/local"
+            f" && make altinstall"
         )
 
         # Removed system build-in Python 3.6.8
         # CentOS 7.9, CentOS 8.x build-in Python 3.6.8
         try:
-            self.c.run('rm -rf /usr/bin/python3')
+            self.c.run("rm -rf /usr/bin/python3")
         except Exception as ex:
-            print('ex', ex)
+            print("ex", ex)
 
-        self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/bin/python3')
-        self.c.run(f'ln -s /usr/local/bin/python{major_version} /usr/local/bin/python3')
-        self.c.run('python3 -V')
-        say('Clean up Python setup files')
-        self.c.run(f'rm -rf Python-{version}')
+        self.c.run(f"ln -s /usr/local/bin/python{major_version} /usr/bin/python3")
+        self.c.run(f"ln -s /usr/local/bin/python{major_version} /usr/local/bin/python3")
+        self.c.run("python3 -V")
+        say("Clean up Python setup files")
+        self.c.run(f"rm -rf Python-{version}")
 
         # Install Gunicorn
-        pypi_mirror_suffix = ' -i https://pypi.doubanio.com/simple/'
-        self.c.run(f'python3 -m pip install gunicorn {pypi_mirror_suffix}')
+        pypi_mirror_suffix = " -i https://pypi.doubanio.com/simple/"
+        self.c.run(f"python3 -m pip install gunicorn {pypi_mirror_suffix}")
 
     def setup_nginx(self):
         # Install Nginx
-        self.c.run('yum install -y nginx')
+        self.c.run("yum install -y nginx")
 
     def setup_supervisor(self):
         # Install Supervisor in Python 2
-        self.c.run('curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py -o get-pip.py')
-        self.c.run('python get-pip.py')
-        self.c.run('python -m pip install supervisor==4.1.0')
-        self.c.run('supervisord -c /etc/supervisor/supervisord.conf')  # launch supervisord
+        self.c.run("curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py -o get-pip.py")
+        self.c.run("python get-pip.py")
+        self.c.run("python -m pip install supervisor==4.1.0")
+        self.c.run("supervisord -c /etc/supervisor/supervisord.conf")  # launch supervisord
 
     def setup_mysql(self):
-        download_url = 'https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm'
-        self.c.run(f'sudo rpm -Uvh {download_url}')
-        self.c.run('sudo yum --enablerepo=mysql80-community install mysql-community-server -y')
-        self.c.run('systemctl start mysqld.service')
+        download_url = "https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm"
+        self.c.run(f"sudo rpm -Uvh {download_url}")
+        self.c.run("sudo yum --enablerepo=mysql80-community install mysql-community-server -y")
+        self.c.run("systemctl start mysqld.service")
 
     def setup_redis(self):
-        version = '4.0.14'
-        download_url = f'http://download.redis.io/releases/redis-{version}.tar.gz'
-        self.c.run(f'curl -o redis-{version}.tar.gz {download_url}')
-        self.c.run(f'tar -zxvf redis-{version}.tar.gz')
+        version = "4.0.14"
+        download_url = f"http://download.redis.io/releases/redis-{version}.tar.gz"
+        self.c.run(f"curl -o redis-{version}.tar.gz {download_url}")
+        self.c.run(f"tar -zxvf redis-{version}.tar.gz")
 
-        self.c.run(f'cd redis-{version} & make')
-        self.c.run(f'cd src && make install PREFIX=/usr/local/redis')
+        self.c.run(f"cd redis-{version} & make")
+        self.c.run(f"cd src && make install PREFIX=/usr/local/redis")
 
-        self.c.run(f'mkdir -p /usr/local/redis/conf')
-        self.c.run(f'cp redis-{version}/redis.conf /usr/local/redis/conf')
+        self.c.run(f"mkdir -p /usr/local/redis/conf")
+        self.c.run(f"cp redis-{version}/redis.conf /usr/local/redis/conf")
 
         # start redis
-        self.c.run('cd /usr/local/redis && bin/redis-server ./conf/redis.conf')
+        self.c.run("cd /usr/local/redis && bin/redis-server ./conf/redis.conf")
