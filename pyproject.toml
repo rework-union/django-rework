@@ -2,7 +2,7 @@
 name = "django-rework"
 version = "0.8.0"
 description = ""
-authors = ["Josh.Yu <josh.yu_8@live.com>"]
+authors = [{ name = "Josh.Yu", email = "josh.yu_8@live.com" }]
 readme = "README.md"
 dependencies = []
 
