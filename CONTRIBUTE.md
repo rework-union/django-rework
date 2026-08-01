@@ -9,8 +9,7 @@ pip install -r requirements_dev.txt
 ## Run tests
 
 ```bash
-pytest  # pytest 
-python tests/runtests.py  # Python Standard Library `unittest`
+pytest
 ```
 
 ## Manual test project creating
