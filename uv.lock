@@ -600,7 +600,7 @@ wheels = [
 
 [[package]]
 name = "django-rework"
-version = "0.8.1"
+version = "0.9.0"
 source = { virtual = "." }
 dependencies = [
     { name = "django" },
@@ -628,7 +628,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = ">=3.2,<6.0" },
+    { name = "django", specifier = ">=4.2,<6.0" },
     { name = "django-cors-headers", specifier = ">=4.0,<5.0" },
     { name = "django-environ", specifier = ">=0.10.0,<1.0" },
     { name = "django-filter", specifier = ">=23.1,<26" },
