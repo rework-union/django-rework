@@ -6,7 +6,17 @@
 Release Notes for versions 0.5 or later
 https://github.com/rework-union/django-rework/releases
 
-## [0.8.0] UNRELEASED
+## [0.9.0] UNRELEASED
+
+### Changed
+- Require Django 4.2 or later and Python 3.10 or later.
+
+## [0.8.1]
+
+### Fixed
+- Restored runtime dependencies in wheel metadata, including `django-nx`.
+
+## [0.8.0]
 
 ### Changed
 - Removed `yapf` in init templates

@@ -1,26 +1,45 @@
 [project]
 name = "django-rework"
-version = "0.8.0"
+version = "0.9.0"
 description = ""
 authors = [{ name = "Josh.Yu", email = "josh.yu_8@live.com" }]
 readme = "README.md"
-dependencies = []
+requires-python = ">=3.10"
+dependencies = [
+    "Django>=4.2,<6.0",
+    "django-cors-headers>=4.0,<5.0",
+    "django-environ>=0.10.0,<1.0",
+    "django-filter>=23.1,<26",
+    "django-mysql>4.9,<5",
+    "django-ninja>=1.3.0,<2.0",
+    "django-nx>=0.1.0,<1.0",
+    "djangorestframework>=3.15.2,<4.0",
+    "djangorestframework-simplejwt~=5.3",
+    "drf-spectacular",
+    "fabric==3.1.0",
+    "Markdown~=3.4",
+    "mysqlclient~=2.1",
+    "Pillow~=9.0",
+    "drf-nested-routers~=0.93",
+    "wechatpy~=1.8",
+]
 
 [tool.poetry]
 name = "django-rework"
-version = "0.8.0"
+version = "0.9.0"
 description = "Rapid develop framework base on Django and Django-Ninja, with non-verbose Django development experience."
 authors = ["Josh.Yu <josh.yu_8@live.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-Django = ">= 3.2, < 6.0"
+python = ">=3.10"
+Django = ">= 4.2, < 6.0"
 django-cors-headers = ">= 4.0, < 5.0"
 django-environ = ">= 0.10.0, < 1.0"
 django-filter = ">= 23.1, < 26"
 django-mysql = ">= 4.9, < 5"
 django-ninja = ">= 1.3.0, < 2.0"
+django-nx = ">= 0.1.0, < 1.0"
 djangorestframework = ">= 3.15.2, < 4.0"
 djangorestframework-simplejwt = "~= 5.3"
 drf-spectacular = "^0.27.0"

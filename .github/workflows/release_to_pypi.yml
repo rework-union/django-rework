@@ -25,10 +25,37 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements_dev.txt
-    - name: Build and publish
+    - name: Build
+      run: |
+        python3 setup.py sdist bdist_wheel
+    - name: Verify wheel dependencies
+      run: |
+        python3 - <<'PY'
+        import email.parser
+        import pathlib
+        import tomllib
+        import zipfile
+
+        from packaging.requirements import Requirement
+        from packaging.utils import canonicalize_name
+
+        project = tomllib.loads(pathlib.Path("pyproject.toml").read_text())["project"]
+        wheel = next(pathlib.Path("dist").glob("*.whl"))
+        with zipfile.ZipFile(wheel) as archive:
+            metadata_file = next(name for name in archive.namelist() if name.endswith(".dist-info/METADATA"))
+            metadata = email.parser.Parser().parsestr(archive.read(metadata_file).decode())
+
+        def requirements(items):
+            return {canonicalize_name(item.name): str(item.specifier) for item in map(Requirement, items)}
+
+        expected = requirements(project["dependencies"])
+        actual = requirements(metadata.get_all("Requires-Dist", []))
+        assert actual == expected, f"Wheel dependencies differ: expected {expected}, got {actual}"
+        assert metadata["Version"] == project["version"]
+        PY
+    - name: Publish
       env:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        python3 setup.py sdist bdist_wheel
         echo Start upload to PyPI using ${{ secrets.PYPI_USERNAME }}
         twine upload dist/* --verbose
